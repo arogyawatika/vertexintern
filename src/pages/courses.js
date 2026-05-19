@@ -5,19 +5,6 @@ import { IoCloseOutline, IoBookOutline } from 'react-icons/io5';
 
 // Hardcoded course data with unique image paths for every course
 const allCourses = [
-    // Vocational
-    { id: 1, image: '/images/courses/1.jpg', title: 'CCCA (Certificate Course in Computer Application)', category: 'Computer Basics', desc: "Basic operation knowledge about computer and it's applications." },
-    { id: 2, image: '/images/courses/2.jpg', title: 'BCCCA (Beginners Certificate in Computer)', category: 'Computer Basics', desc: "Basic operation knowledge for school students below 10th class." },
-    { id: 3, image: '/images/courses/3.jpg', title: 'DCA (Diploma in Computer Application)', category: 'Computer Basics', desc: "Basic operational knowledge about computer and its applications with internet." },
-    { id: 4, image: '/images/courses/4.jpg', title: 'ADCA (Advance Diploma in Computer Application)', category: 'Advance Basics', desc: "Advance knowledge about the computer and its applications, internet and web." },
-    { id: 5, image: '/images/courses/5.jpg', title: 'DTP (Desktop Publishing)', category: 'Design', desc: "Advance knowledge of all design works using PageMaker, Photoshop and CorelDraw." },
-    { id: 6, image: '/images/courses/6.jpg', title: 'TALLY', category: 'Finance', desc: "Complete knowledge of working on tally with accountancy." },
-    { id: 7, image: '/images/courses/7.jpg', title: 'Typing (English)', category: 'Skill Development', desc: "English typing training for better typing experience." },
-    { id: 8, image: '/images/courses/8.jpg', title: 'CSPD (Communication Skill & Personality)', category: 'Skill Development', desc: "Spoken English for professional communication and personality development." },
-    { id: 9, image: '/images/courses/9.jpg', title: 'ACCOUNTANCY (DFA)', category: 'Finance', desc: "Complete knowledge of working in account section of any organization." },
-    { id: 10, image: '/images/courses/10.jpg', title: 'Typing (Hindi)', category: 'Skill Development', desc: "Hindi typing training for better typing experience." },
-    { id: 11, image: '/images/courses/11.jpg', title: 'COMPUTER PROFICIENCY', category: 'Computer Basics', desc: "Advance knowledge about computer applications, internet and web technologies." },
-    
     // Engineering Design & Internship
     { id: 12, image: '/images/courses/12.jpg', title: 'Civil Engineering Design & Site Visit', category: 'Civil', desc: "For civil engineering or architect students." },
     { id: 13, image: '/images/courses/13.jpg', title: 'Mechanical Engineering Design & Workshop', category: 'Mechanical', desc: "For mechanical or automobile engineering students." },
@@ -69,7 +56,21 @@ const allCourses = [
     { id: 53, image: '/images/courses/53.jpg', title: 'MATLAB', category: 'Engineering Tools', desc: "Study about Matlab." },
     { id: 54, image: '/images/courses/54.jpg', title: 'INTERNET OF THINGS (IOT)', category: 'Emerging Tech', desc: "Study about Internet of Things (IOT)." },
     { id: 55, image: '/images/courses/55.jpg', title: 'ARTIFICIAL INTELLIGENCE', category: 'Emerging Tech', desc: "Study about Artificial Intelligence (AI)." },
-    { id: 56, image: '/images/courses/56.jpg', title: 'J2EE (Advance JAVA)', category: 'Programming', desc: "Study about J2EE (Advance Java)." }
+    { id: 56, image: '/images/courses/56.jpg', title: 'J2EE (Advance JAVA)', category: 'Programming', desc: "Study about J2EE (Advance Java)." },
+
+        // Vocational
+    { id: 1, image: '/images/courses/1.jpg', title: 'CCCA (Certificate Course in Computer Application)', category: 'Computer Basics', desc: "Basic operation knowledge about computer and it's applications." },
+    { id: 2, image: '/images/courses/2.jpg', title: 'BCCCA (Beginners Certificate in Computer)', category: 'Computer Basics', desc: "Basic operation knowledge for school students below 10th class." },
+    { id: 3, image: '/images/courses/3.jpg', title: 'DCA (Diploma in Computer Application)', category: 'Computer Basics', desc: "Basic operational knowledge about computer and its applications with internet." },
+    { id: 4, image: '/images/courses/4.jpg', title: 'ADCA (Advance Diploma in Computer Application)', category: 'Advance Basics', desc: "Advance knowledge about the computer and its applications, internet and web." },
+    { id: 5, image: '/images/courses/5.jpg', title: 'DTP (Desktop Publishing)', category: 'Design', desc: "Advance knowledge of all design works using PageMaker, Photoshop and CorelDraw." },
+    { id: 6, image: '/images/courses/6.jpg', title: 'TALLY', category: 'Finance', desc: "Complete knowledge of working on tally with accountancy." },
+    { id: 7, image: '/images/courses/7.jpg', title: 'Typing (English)', category: 'Skill Development', desc: "English typing training for better typing experience." },
+    { id: 8, image: '/images/courses/8.jpg', title: 'CSPD (Communication Skill & Personality)', category: 'Skill Development', desc: "Spoken English for professional communication and personality development." },
+    { id: 9, image: '/images/courses/9.jpg', title: 'ACCOUNTANCY (DFA)', category: 'Finance', desc: "Complete knowledge of working in account section of any organization." },
+    { id: 10, image: '/images/courses/10.jpg', title: 'Typing (Hindi)', category: 'Skill Development', desc: "Hindi typing training for better typing experience." },
+    { id: 11, image: '/images/courses/11.jpg', title: 'COMPUTER PROFICIENCY', category: 'Computer Basics', desc: "Advance knowledge about computer applications, internet and web technologies." }
+    
 ];
 
 const ITEMS_PER_PAGE = 9;

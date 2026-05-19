@@ -24,7 +24,7 @@ export default function Home() {
         <Stats />
         <About />
         <CallToAction />
-        
+
         {/* You can drop in your VideoGallery component here later! */}
 
         <ContactBanner />
