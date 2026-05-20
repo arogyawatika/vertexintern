@@ -5,10 +5,10 @@ export default function Stats() {
     const statsRef = useRef(null);
 
     const statsData = [
-        { number: '15K+', label: 'Students Enrolled' },
-        { number: '50+', label: 'Live Courses' },
+        { number: '15K+', label: 'Students Elevated' },
+        { number: '50+', label: 'Industry Programs' },
         { number: '100+', label: 'Expert Mentors' },
-        { number: '95%', label: 'Placement Rate' }
+        { number: '95%', label: 'Career Success Rate' }
     ];
 
     // Intersection Observer to trigger animation when scrolled into view
@@ -38,7 +38,7 @@ export default function Stats() {
                         <div 
                             key={index} 
                             className={`stat-card ${isVisible ? 'animate-in' : ''}`}
-                            style={{ transitionDelay: `${index * 0.15}s` }} // Staggered delay for each card
+                            style={{ transitionDelay: `${index * 0.15}s` }} 
                         >
                             <div className="stat-inner">
                                 <h3 className="text-3d">{stat.number}</h3>
@@ -51,15 +51,16 @@ export default function Stats() {
 
             <style jsx>{`
                 .stats-section { 
-                    /* Premium rich gradient using brand blue */
-                    background: linear-gradient(135deg, #0b3964 0%, #145da0 100%); 
-                    padding: 5rem 1.5rem; 
+                    /* Premium Light Gradient Background (Soft diagonal transitioning to a very pale teal/grey) */
+                    background: linear-gradient(135deg, #ffffff 0%, #f0f5f4 100%); 
+                    padding: 6rem 1.5rem; 
                     font-family: 'Ubuntu', sans-serif;
                     position: relative;
                     overflow: hidden;
+                    border-top: 1px solid rgba(114, 186, 169, 0.2);
                 }
 
-                /* Optional subtle background glow */
+                /* Subtle background glow using Rose for a touch of warmth */
                 .stats-section::before {
                     content: '';
                     position: absolute;
@@ -67,7 +68,7 @@ export default function Stats() {
                     left: -10%;
                     width: 50%;
                     height: 200%;
-                    background: radial-gradient(circle, rgba(252, 171, 23, 0.1) 0%, transparent 60%);
+                    background: radial-gradient(circle, rgba(173, 92, 113, 0.08) 0%, transparent 60%);
                     pointer-events: none;
                 }
 
@@ -85,56 +86,51 @@ export default function Stats() {
                 }
                 
                 .stat-card {
-                    /* Initial hidden state for animation */
                     opacity: 0;
                     transform: translateY(40px);
                     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
-                /* Animate in state */
                 .stat-card.animate-in {
                     opacity: 1;
                     transform: translateY(0);
                 }
 
-                /* Premium Glassmorphism Card Style */
+                /* Premium Card Style */
                 .stat-inner {
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
+                    background: #ffffff;
+                    border: 1px solid transparent;
                     border-radius: 16px;
-                    padding: 2.5rem 1.5rem;
+                    padding: 3rem 1.5rem;
                     text-align: center;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                    transition: transform 0.3s ease, background 0.3s ease;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
                 }
 
                 .stat-inner:hover {
-                    transform: translateY(-5px);
-                    background: rgba(255, 255, 255, 0.08);
+                    border-color: #72BAA9; /* Clear teal border */
+                    box-shadow: 0 15px 40px rgba(114, 186, 169, 0.15); /* Prominent teal shadow */
                 }
 
                 /* --- 3D Text CSS Magic --- */
                 .text-3d { 
-                    color: #fcab17; /* Brand Accent */
+                    color: #72BAA9; /* Teal Accent */
                     font-size: 3rem; 
                     font-weight: 700; 
-                    margin: 0 0 0.5rem 0; 
+                    margin: 0 0 0.75rem 0; 
                     letter-spacing: 1px;
-                    /* Layered text-shadows create the 3D extrusion effect */
                     text-shadow: 
-                        1px 1px 0 #d48a06,
-                        2px 2px 0 #b37404,
-                        3px 3px 0 #945f03,
-                        4px 4px 0 #754b02,
-                        6px 6px 15px rgba(0, 0, 0, 0.4);
+                        1px 1px 0 #5b9b8b,
+                        2px 2px 0 #468071,
+                        3px 3px 0 #33675a,
+                        4px 4px 0 #214f43,
+                        6px 6px 15px rgba(0, 0, 0, 0.15);
                 }
 
                 .stat-inner p { 
-                    color: #e2e8f0; 
+                    color: #934761; /* Primary Plum Color */
                     font-size: 1.1rem; 
-                    font-weight: 500; 
+                    font-weight: 600; 
                     margin: 0; 
                     text-transform: uppercase;
                     letter-spacing: 1.5px;
@@ -151,27 +147,27 @@ export default function Stats() {
                     }
                 }
 
-                /* --- Mobile Responsive --- */
+                /* --- Mobile Responsive (Strict 2x2 Grid) --- */
                 @media (max-width: 768px) {
                     .stats-section { 
                         padding: 4rem 1rem; 
                     }
                     .stats-grid { 
+                        /* Forces exactly 2 columns */
                         grid-template-columns: repeat(2, 1fr); 
                         gap: 1rem; 
                     }
                     .stat-inner {
-                        padding: 1.5rem 1rem;
+                        padding: 2rem 1rem;
                         border-radius: 12px;
                     }
                     .text-3d { 
                         font-size: 2rem; 
-                        /* Slightly reduced 3D effect for smaller screens to keep it clean */
                         text-shadow: 
-                            1px 1px 0 #d48a06,
-                            2px 2px 0 #b37404,
-                            3px 3px 0 #945f03,
-                            4px 4px 10px rgba(0, 0, 0, 0.4);
+                            1px 1px 0 #5b9b8b,
+                            2px 2px 0 #468071,
+                            3px 3px 0 #33675a,
+                            4px 4px 10px rgba(0, 0, 0, 0.15);
                     }
                     .stat-inner p { 
                         font-size: 0.85rem; 
@@ -179,10 +175,22 @@ export default function Stats() {
                     }
                 }
 
-                /* Extra small phones (Single Column Fallback) */
+                /* Extra small phones - Keeps the 2x2 layout but shrinks text to fit seamlessly */
                 @media (max-width: 480px) {
                     .stats-grid { 
-                        grid-template-columns: 1fr; 
+                        /* Strictly maintains the 2 column layout */
+                        grid-template-columns: repeat(2, 1fr); 
+                        gap: 0.75rem; 
+                    }
+                    .stat-inner {
+                        padding: 1.5rem 0.5rem;
+                    }
+                    .text-3d {
+                        font-size: 1.6rem; /* Scaled down to fit side-by-side */
+                    }
+                    .stat-inner p {
+                        font-size: 0.7rem; /* Scaled down to prevent text wrapping awkwardly */
+                        letter-spacing: 0.5px;
                     }
                 }
             `}</style>

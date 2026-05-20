@@ -42,11 +42,11 @@ export default function MyApp({ Component, pageProps }) {
 
                 /* Custom Text Selection Color */
                 ::selection {
-                    background: #fcab17;
+                    background: #934761;
                     color: #ffffff; /* White text looks crisp against the yellow/orange selection */
                 }
                 ::-moz-selection {
-                    background: #fcab17;
+                    background: #934761;
                     color: #ffffff;
                 }
 

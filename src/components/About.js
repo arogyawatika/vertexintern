@@ -20,7 +20,7 @@ export default function About() {
                             <IoRibbonOutline />
                         </div>
                         <div className="award-text">
-                            <h3>5+</h3>
+                            <h3>6+</h3>
                             <p>Years of Excellence</p>
                         </div>
                     </div>
@@ -28,22 +28,22 @@ export default function About() {
 
                 {/* Right Side: Content */}
                 <div className="about-content">
-                    <span className="subtitle">ABOUT US</span>
-                    <h2>Learn & Grow Your Skills From <span className="highlight">Anywhere</span></h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed eiusmod ex tempor incididunt labore dolore magna aliquaenim minim veniam quis nostrud exercitation ullamco laboris.</p>
+                    <span className="subtitle">ABOUT ELEVATE INTERNS</span>
+                    <h2>Bridging the Gap Between <span className="highlight">Academia</span> & Industry</h2>
+                    <p>Elevate Interns is dedicated to providing industry-oriented training that equips students with the practical skills needed for the modern workforce. We focus on transforming learners into confident professionals, skilled workers, and successful entrepreneurs through expert-led programs.</p>
 
                     <ul className="feature-list">
                         <li>
                             <div className="check-circle"><IoCheckmarkOutline /></div>
-                            Expert Trainers
+                            Industry-Oriented Curriculum
                         </li>
                         <li>
                             <div className="check-circle"><IoCheckmarkOutline /></div>
-                            Online Remote Learning
+                            Expert Mentorship & Guidance
                         </li>
                         <li>
                             <div className="check-circle"><IoCheckmarkOutline /></div>
-                            Lifetime Access
+                            Practical Skill Development
                         </li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@ export default function About() {
             <style jsx>{`
                 .about-section {
                     padding: 6rem 1.5rem;
-                    font-family: sans-serif;
+                    font-family: 'Ubuntu', sans-serif;
                     background-color: #ffffff;
                 }
 
@@ -80,6 +80,7 @@ export default function About() {
                     border-radius: 12px;
                     display: block;
                     object-fit: cover;
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
                 }
 
                 .award-card {
@@ -89,7 +90,7 @@ export default function About() {
                     background: #ffffff;
                     padding: 1.25rem 1.5rem;
                     border-radius: 10px;
-                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+                    box-shadow: 0 15px 35px rgba(147, 71, 97, 0.15); /* Tinted shadow matching primary plum */
                     display: flex;
                     align-items: center;
                     gap: 1rem;
@@ -97,8 +98,8 @@ export default function About() {
                 }
 
                 .award-icon {
-                    background: #e0f2fe; /* Soft blue background */
-                    color: #145da0; /* Brand Blue */
+                    background: #D5E7B5; /* Brand Light Green */
+                    color: #934761; /* Brand Plum */
                     width: 45px;
                     height: 45px;
                     border-radius: 50%;
@@ -112,13 +113,13 @@ export default function About() {
                     margin: 0;
                     font-size: 1.5rem;
                     font-weight: 700;
-                    color: #145da0; /* Brand Blue */
+                    color: #934761; /* Brand Plum */
                 }
 
                 .award-text p {
                     margin: 0;
                     font-size: 0.85rem;
-                    color: #64748b;
+                    color: #AD5C71; /* Brand Rose */
                     font-weight: 600;
                 }
 
@@ -128,7 +129,7 @@ export default function About() {
                 }
 
                 .subtitle {
-                    color: #64748b;
+                    color: #AD5C71; /* Brand Rose */
                     font-weight: 700;
                     text-transform: uppercase;
                     letter-spacing: 1.5px;
@@ -146,7 +147,7 @@ export default function About() {
                 }
 
                 .highlight {
-                    color: #fcab17; /* Brand Accent */
+                    color: #72BAA9; /* Brand Teal Highlight */
                 }
 
                 .about-content p {
@@ -175,8 +176,8 @@ export default function About() {
                 }
 
                 .check-circle {
-                    color: #fcab17; /* Brand Accent */
-                    font-size: 1.4rem;
+                    color: #72BAA9; /* Brand Teal */
+                    font-size: 1.5rem;
                     display: flex;
                     align-items: center;
                     justify-content: center;
