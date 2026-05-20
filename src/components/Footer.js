@@ -59,7 +59,7 @@ export default function Footer() {
                         <h4>Links</h4>
                         <ul className="footer-links">
                             <li><Link href="#" legacyBehavior passHref><a>Contact Us</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Gallery</a></Link></li>
+                            <li><Link href="/privacy" legacyBehavior passHref><a>Privacy Policy</a></Link></li>
                             <li><Link href="#" legacyBehavior passHref><a>News & Articles</a></Link></li>
                             <li><Link href="#" legacyBehavior passHref><a>FAQ's</a></Link></li>
                             <li><Link href="#" legacyBehavior passHref><a>Sign In/Registration</a></Link></li>

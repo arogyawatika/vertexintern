@@ -71,7 +71,7 @@ export default function Verify() {
                             <div className="result-card success">
                                 <div className="success-header">
                                     <IoCheckmarkCircle className="result-icon" />
-                                    <h3>Authentic Certificate</h3>
+                                    <h3>Certificate Verified</h3>
                                 </div>
                                 <div className="cert-details">
                                     <div className="detail-row">
@@ -176,24 +176,24 @@ export default function Verify() {
                     text-align: center;
                 }
                 
-                .result-card.error { border-top: 5px solid #ef4444; }
+                .result-card.error { border-top: 0px solid #ef4444; }
                 .result-card.error .result-icon { color: #ef4444; font-size: 4rem; margin-bottom: 1rem; }
                 .result-card.error h3 { color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0 0 0.5rem 0; }
                 .result-card.error p { color: #64748b; margin: 0; line-height: 1.5; }
 
-                .result-card.success { border-top: 5px solid #10b981; text-align: left; }
+                .result-card.success {  text-align: left; }
                 .success-header { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; }
-                .success-header .result-icon { color: #10b981; font-size: 2.5rem; }
+                .success-header .result-icon { color:  #10b981; font-size: 2.5rem; }
                 .success-header h3 { color: #1e293b; font-size: 1.6rem; font-weight: 700; margin: 0; }
 
                 .cert-details { display: flex; flex-direction: column; gap: 1rem; }
                 .detail-row { display: flex; flex-direction: column; gap: 4px; }
-                .detail-row .label { color: #64748b; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+                .detail-row .label { color: #64748b; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
                 .detail-row .value { color: #1e293b; font-size: 1.2rem; font-weight: 500; }
                 .detail-row .value.name { font-weight: 700; color: #145da0; font-size: 1.4rem; }
 
                 @media (max-width: 768px) {
-                    .verify-header h1 { font-size: 2.2rem; }
+                    .verify-header h1 { font-size: 2rem; }
                     .search-bar { flex-direction: column; background: transparent; box-shadow: none; padding: 0; }
                     .search-bar input, .search-bar button { width: 100%; padding: 16px; justify-content: center; }
                     .result-card { padding: 1.5rem; }

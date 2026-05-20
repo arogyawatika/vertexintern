@@ -65,12 +65,16 @@ export default function Header() {
 
                     {/* Actions */}
                     <div className="header-actions">
-                        <div className="cart-wrapper">
-                            <button className="icon-btn"><IoCartOutline /></button>
-                            <span className="cart-badge">0</span>
-                        </div>
+                        {/* Download Brochure Button */}
+                        <a 
+                            href="/company-profile.pdf" 
+                            download="Elevate_Interns_Brochure.pdf" 
+                            className="btn-brochure"
+                        >
+                            Brochure
+                        </a>
                         
-                        {/* Mobile Hamburger Toggle */}
+                        {/* Mobile Hamburger Toggle (Hidden on Desktop via CSS) */}
                         <button className="mobile-toggle mobile-only" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                             {isMenuOpen ? <IoCloseOutline /> : <IoMenuOutline />}
                         </button>
@@ -171,40 +175,32 @@ export default function Header() {
                     align-items: center; 
                     gap: 1.5rem; 
                 }
-                .icon-btn { 
-                    background: none; 
-                    border: none; 
-                    font-size: 1.5rem; 
-                    cursor: pointer; 
-                    color: #333; 
-                    display: flex; 
-                    align-items: center; 
-                    padding: 0; 
+                
+                .btn-brochure {
+                    background-color: #145da0; /* Brand Blue */
+                    color: #ffffff;
+                    text-decoration: none;
+                    padding: 10px 20px;
+                    border-radius: 6px;
+                    font-weight: 700;
+                    font-size: 0.95rem;
+                    transition: all 0.3s ease;
+                    border: 2px solid transparent;
+                    white-space: nowrap;
                 }
-                .cart-wrapper { 
-                    position: relative; 
-                }
-                .cart-badge { 
-                    position: absolute; 
-                    top: -8px; 
-                    right: -10px; 
-                    background: #fcab17; 
-                    color: white; 
-                    font-size: 0.7rem; 
-                    font-weight: 700; 
-                    padding: 2px 6px; 
-                    border-radius: 10px; 
+                .btn-brochure:hover {
+                    background-color: #0f4a82;
                 }
                 
                 .mobile-only { 
                     display: none; 
                 }
                 .mobile-toggle {
+                    display: none; /* Forces it to hide on desktop */
                     background: none;
                     border: none;
                     cursor: pointer;
                     color: #333;
-                    display: flex;
                     align-items: center;
                     padding: 0;
                 }
@@ -240,28 +236,21 @@ export default function Header() {
                     background: #f8fafc;
                     color: #145da0;
                 }
+                    
 
                 @media (max-width: 992px) {
-                    .desktop-nav { 
-                        display: none; 
-                    }
-                    .mobile-only { 
-                        display: block; 
-                        font-size: 2rem; 
-                    }
-                    .header-wrapper {
-                        min-height: 60px; /* Adjust wrapper height for mobile */
-                    }
-                    .container { 
-                        padding: 0.5rem; 
-                    }
-                    .logo-image {
-                        height: 45px; 
-                    }
-                    .mobile-menu a { 
-                        font-size: 1rem; 
-                        font-weight: 600; 
-                    } 
+                    .desktop-nav { display: none; }
+                    .mobile-only { display: block; font-size: 2rem; }
+                    
+                    /* ADD THIS TO BRING IT BACK ON MOBILE */
+                    .mobile-toggle { display: flex; }
+                    
+                    .header-wrapper { min-height: 60px; }
+                    .container { padding: 0.5rem; }
+                    .logo-image { height: 45px; }
+                    .header-actions { gap: 1rem; }
+                    .btn-brochure { padding: 8px 15px; font-size: 0.85rem; }
+                    .mobile-menu a { font-size: 1rem; font-weight: 600; } 
                 }
             `}</style>
         </header>
