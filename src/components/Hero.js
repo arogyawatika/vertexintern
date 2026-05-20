@@ -172,7 +172,7 @@ export default function Hero() {
                     display: inline-flex; 
                     align-items: center;
                     justify-content: center;
-                    transition: all 0.3s ease; 
+                    transition: all 0s ease; 
                     border: none;
                     cursor: pointer;
                     box-shadow: 0 8px 15px rgba(114, 186, 169, 0.25); 
@@ -181,7 +181,6 @@ export default function Hero() {
                 a.btn-hero:hover { 
                     background-color: #934761 !important; /* Reverses to primary plum color on hover */
                     box-shadow: 0 8px 20px rgba(147, 71, 97, 0.3);
-                    transform: translateY(-2px);
                 }
 
                 .hero-image { 

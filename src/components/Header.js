@@ -164,7 +164,7 @@ export default function Header() {
                     transition: color 0.3s; 
                 }
                 .desktop-nav a:hover { 
-                    color: #145da0; 
+                    color: #934761; 
                 }
                 .desktop-nav span { 
                     font-size: 0.8rem; 
@@ -177,7 +177,7 @@ export default function Header() {
                 }
                 
                 .btn-brochure {
-                    background-color: #145da0; /* Brand Blue */
+                    background-color: #934761; /* Brand Blue */
                     color: #ffffff;
                     text-decoration: none;
                     padding: 10px 20px;
@@ -189,7 +189,7 @@ export default function Header() {
                     white-space: nowrap;
                 }
                 .btn-brochure:hover {
-                    background-color: #0f4a82;
+                    background-color: #72BAA9;
                 }
                 
                 .mobile-only { 
@@ -234,7 +234,7 @@ export default function Header() {
                 }
                 .mobile-menu a:hover {
                     background: #f8fafc;
-                    color: #145da0;
+                    color: #934761;
                 }
                     
 
