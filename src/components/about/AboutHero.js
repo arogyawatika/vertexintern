@@ -67,20 +67,20 @@ export default function AboutHero() {
                 
                 .section-subtitle { 
                     display: flex; align-items: center; gap: 8px;
-                    font-size: 0.9rem; font-weight: 700; color: #145da0; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; 
+                    font-size: 0.9rem; font-weight: 700; color: #AD5C71; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; /* Brand Rose */
                 }
                 :global(.subtitle-icon) { font-size: 1.2rem; }
 
                 .hero-content h2 { font-size: 3.2rem; color: #1e293b; font-weight: 700; line-height: 1.2; margin: 0; }
-                .highlight { color: #fcab17; }
+                .highlight { color: #72BAA9; } /* Brand Teal */
                 
-                .brush-stroke { width: 100px; height: 5px; background-color: #1bba93; border-radius: 10px; margin-top: 12px; margin-bottom: 1.5rem; }
+                .brush-stroke { width: 100px; height: 5px; background-color: #934761; border-radius: 10px; margin-top: 12px; margin-bottom: 1.5rem; } /* Brand Plum */
 
                 .desc { color: #64748b; font-size: 1.1rem; line-height: 1.7; margin-bottom: 2rem; }
 
                 .feature-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
                 .feature-list li { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #334155; font-size: 1.05rem; }
-                .check-icon { color: #1bba93; font-size: 1.4rem; display: flex; align-items: center; }
+                .check-icon { color: #72BAA9; font-size: 1.4rem; display: flex; align-items: center; } /* Brand Teal */
 
                 /* --- RIGHT LOGO AREA --- */
                 .hero-logos-area { position: relative; display: flex; justify-content: center; }
@@ -109,7 +109,7 @@ export default function AboutHero() {
 
                 /* Decorations */
                 .bg-dots-top { position: absolute; right: -5%; top: -10%; width: 150px; height: 150px; background-image: radial-gradient(#cbd5e1 2.5px, transparent 2.5px); background-size: 18px 18px; z-index: 1; }
-                .bg-arc { position: absolute; left: -10%; bottom: -10%; width: 120px; height: 120px; border: 3px solid #fcab17; border-radius: 50%; clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); z-index: 1; }
+                .bg-arc { position: absolute; left: -10%; bottom: -10%; width: 120px; height: 120px; border: 3px solid #D5E7B5; border-radius: 50%; clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); z-index: 1; } /* Brand Light Green */
 
                 /* --- RESPONSIVE --- */
                 @media (max-width: 992px) {

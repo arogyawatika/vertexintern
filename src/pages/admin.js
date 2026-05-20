@@ -185,7 +185,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="admin-wrapper">
-            <Head><title>Admin Dashboard | Vertex</title></Head>
+            <Head><title>Admin Dashboard | Elevate</title></Head>
             
             {!isLoggedIn ? (
                 <div className="login-box">
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
                     {/* Responsive Sidebar / Top Nav */}
                     <aside className="sidebar">
                         <div className="sidebar-header">
-                            <h2>Vertex Admin</h2>
+                            <h2>Elevate Admin</h2>
                             <button className="logout-btn mobile-only" onClick={handleLogout}><IoLogOutOutline /> Logout</button>
                         </div>
                         <nav className="nav-links">

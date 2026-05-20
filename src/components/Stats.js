@@ -4,23 +4,16 @@ export default function Stats() {
     const [isVisible, setIsVisible] = useState(false);
     const statsRef = useRef(null);
 
-    const statsData = [
-        { number: '15K+', label: 'Students Elevated' },
-        { number: '50+', label: 'Industry Programs' },
-        { number: '100+', label: 'Expert Mentors' },
-        { number: '95%', label: 'Career Success Rate' }
-    ];
-
     // Intersection Observer to trigger animation when scrolled into view
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect(); // Stop observing once animated
+                    observer.disconnect();
                 }
             },
-            { threshold: 0.2 } // Triggers when 20% of the section is visible
+            { threshold: 0.2 }
         );
 
         if (statsRef.current) {
@@ -32,166 +25,218 @@ export default function Stats() {
 
     return (
         <section className="stats-section" ref={statsRef}>
+            
+            {/* --- Decorative Background Elements using Brand Colors --- */}
+            <div className="decor-dots-top"></div>
+            <div className="decor-circle-top"></div>
+            <div className="decor-blob-bottom"></div>
+            <div className="decor-dots-bottom"></div>
+
             <div className="container">
-                <div className="stats-grid">
-                    {statsData.map((stat, index) => (
-                        <div 
-                            key={index} 
-                            className={`stat-card ${isVisible ? 'animate-in' : ''}`}
-                            style={{ transitionDelay: `${index * 0.15}s` }} 
-                        >
-                            <div className="stat-inner">
-                                <h3 className="text-3d">{stat.number}</h3>
-                                <p>{stat.label}</p>
-                            </div>
-                        </div>
-                    ))}
+                <div className={`stats-card ${isVisible ? 'animate-in' : ''}`}>
+                    
+                    {/* Stat 1: Top Left */}
+                    <div className="stat-item border-bottom border-right">
+                        <h3 className="color-teal">15K+</h3>
+                        <p>Students Elevated</p>
+                    </div>
+
+                    {/* Stat 2: Top Right */}
+                    <div className="stat-item border-bottom">
+                        <h3 className="color-rose">50+</h3>
+                        <p>Industry Programs</p>
+                    </div>
+
+                    {/* Stat 3: Bottom Left */}
+                    <div className="stat-item border-right">
+                        <h3 className="color-plum">100+</h3>
+                        <p>Expert Mentors</p>
+                    </div>
+
+                    {/* Stat 4: Bottom Right */}
+                    <div className="stat-item">
+                        {/* Using Teal again here for balanced cross-color harmony */}
+                        <h3 className="color-teal-alt">95%</h3>
+                        <p>Career Success Rate</p>
+                    </div>
+
                 </div>
             </div>
 
             <style jsx>{`
                 .stats-section { 
-                    /* Premium Light Gradient Background (Soft diagonal transitioning to a very pale teal/grey) */
-                    background: linear-gradient(135deg, #ffffff 0%, #f0f5f4 100%); 
-                    padding: 6rem 1.5rem; 
+                    /* Creates the 50/50 split background effect seen in your image */
+                    background: linear-gradient(to bottom, #f4f6f9 50%, #ffffff 50%);
+                    padding: 8rem 1.5rem; 
                     font-family: 'Ubuntu', sans-serif;
                     position: relative;
                     overflow: hidden;
-                    border-top: 1px solid rgba(114, 186, 169, 0.2);
-                }
-
-                /* Subtle background glow using Rose for a touch of warmth */
-                .stats-section::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%;
-                    left: -10%;
-                    width: 50%;
-                    height: 200%;
-                    background: radial-gradient(circle, rgba(173, 92, 113, 0.08) 0%, transparent 60%);
-                    pointer-events: none;
                 }
 
                 .container { 
-                    max-width: 1200px; 
+                    max-width: 900px; /* Constrained width for the single card look */
                     margin: 0 auto; 
                     position: relative;
-                    z-index: 1;
+                    z-index: 10;
                 }
 
-                .stats-grid { 
-                    display: grid; 
-                    grid-template-columns: repeat(4, 1fr); 
-                    gap: 2rem; 
-                }
-                
-                .stat-card {
+                /* --- Main Central Card --- */
+                .stats-card {
+                    background: #ffffff;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
                     opacity: 0;
                     transform: translateY(40px);
                     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
-                .stat-card.animate-in {
+                .stats-card.animate-in {
                     opacity: 1;
                     transform: translateY(0);
                 }
 
-                /* Premium Card Style */
-                .stat-inner {
-                    background: #ffffff;
-                    border: 1px solid transparent;
-                    border-radius: 16px;
-                    padding: 3rem 1.5rem;
+                /* --- Individual Stat Cells --- */
+                .stat-item {
+                    padding: 4rem 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
                     text-align: center;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-                    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+                    transition: background 0.3s ease;
                 }
 
-                .stat-inner:hover {
-                    border-color: #72BAA9; /* Clear teal border */
-                    box-shadow: 0 15px 40px rgba(114, 186, 169, 0.15); /* Prominent teal shadow */
+                .stat-item:hover {
+                    background: #fdfdfd;
                 }
 
-                /* --- 3D Text CSS Magic --- */
-                .text-3d { 
-                    color: #72BAA9; /* Teal Accent */
-                    font-size: 3rem; 
-                    font-weight: 700; 
-                    margin: 0 0 0.75rem 0; 
-                    letter-spacing: 1px;
-                    text-shadow: 
-                        1px 1px 0 #5b9b8b,
-                        2px 2px 0 #468071,
-                        3px 3px 0 #33675a,
-                        4px 4px 0 #214f43,
-                        6px 6px 15px rgba(0, 0, 0, 0.15);
+                /* Thin borders separating the 2x2 grid */
+                .border-bottom {
+                    border-bottom: 1px solid #e2e8f0;
+                }
+                .border-right {
+                    border-right: 1px solid #e2e8f0;
                 }
 
-                .stat-inner p { 
-                    color: #934761; /* Primary Plum Color */
-                    font-size: 1.1rem; 
-                    font-weight: 600; 
-                    margin: 0; 
+                /* Text Styling */
+                .stat-item h3 {
+                    font-size: 3.5rem;
+                    font-weight: 800;
+                    margin: 0 0 0.5rem 0;
+                    line-height: 1;
+                    letter-spacing: -1px;
+                }
+
+                .stat-item p {
+                    color: #475569;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+                    margin: 0;
                     text-transform: uppercase;
                     letter-spacing: 1.5px;
                 }
 
+                /* --- Brand Colors Applied to Text --- */
+                .color-teal { color: #72BAA9; }
+                .color-rose { color: #AD5C71; }
+                .color-plum { color: #934761; }
+                .color-teal-alt { color: #72BAA9; }
+
+                /* --- Background Decorative Elements (Matches your image exactly) --- */
+                .decor-dots-top {
+                    position: absolute;
+                    top: 15%;
+                    left: 15%;
+                    width: 140px;
+                    height: 140px;
+                    background-image: radial-gradient(#72BAA9 2px, transparent 2px);
+                    background-size: 16px 16px;
+                    opacity: 0.6;
+                    z-index: 1;
+                }
+
+                .decor-circle-top {
+                    position: absolute;
+                    top: 10%;
+                    left: 22%;
+                    width: 120px;
+                    height: 120px;
+                    border: 6px dashed #AD5C71;
+                    border-radius: 50%;
+                    z-index: 2;
+                    animation: spin 30s linear infinite;
+                }
+
+                .decor-blob-bottom {
+                    position: absolute;
+                    bottom: 10%;
+                    right: 15%;
+                    width: 200px;
+                    height: 200px;
+                    background-color: #D5E7B5; /* Brand Light Green */
+                    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+                    z-index: 1;
+                    animation: morph 8s ease-in-out infinite alternate;
+                }
+
+                .decor-dots-bottom {
+                    position: absolute;
+                    bottom: 12%;
+                    right: 25%;
+                    width: 120px;
+                    height: 120px;
+                    background-image: radial-gradient(#934761 2px, transparent 2px);
+                    background-size: 16px 16px;
+                    opacity: 0.4;
+                    z-index: 2;
+                }
+
+                @keyframes spin { 100% { transform: rotate(360deg); } }
+                @keyframes morph {
+                    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+                    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+                }
+
                 /* --- Tablet Responsive --- */
                 @media (max-width: 992px) {
-                    .stats-grid { 
-                        grid-template-columns: repeat(2, 1fr); 
-                        gap: 2rem; 
-                    }
-                    .text-3d {
-                        font-size: 2.8rem;
-                    }
+                    .stats-section { padding: 6rem 1.5rem; }
+                    .stat-item { padding: 3rem 1.5rem; }
+                    .stat-item h3 { font-size: 3rem; }
+                    .decor-dots-top, .decor-circle-top, .decor-blob-bottom, .decor-dots-bottom { display: none; } /* Hide decor on smaller screens to keep it clean */
                 }
 
                 /* --- Mobile Responsive (Strict 2x2 Grid) --- */
                 @media (max-width: 768px) {
                     .stats-section { 
                         padding: 4rem 1rem; 
+                        /* Keep the split background but adjust proportion for mobile */
+                        background: linear-gradient(to bottom, #f4f6f9 30%, #ffffff 30%);
                     }
-                    .stats-grid { 
-                        /* Forces exactly 2 columns */
-                        grid-template-columns: repeat(2, 1fr); 
-                        gap: 1rem; 
+                    .stats-card {
+                        /* Ensures it stays 2 columns exactly like your mobile screenshot */
+                        grid-template-columns: 1fr 1fr;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
                     }
-                    .stat-inner {
-                        padding: 2rem 1rem;
-                        border-radius: 12px;
+                    .stat-item {
+                        padding: 2.5rem 1rem;
                     }
-                    .text-3d { 
-                        font-size: 2rem; 
-                        text-shadow: 
-                            1px 1px 0 #5b9b8b,
-                            2px 2px 0 #468071,
-                            3px 3px 0 #33675a,
-                            4px 4px 10px rgba(0, 0, 0, 0.15);
+                    .stat-item h3 {
+                        font-size: 2.2rem;
+                        margin-bottom: 0.25rem;
                     }
-                    .stat-inner p { 
-                        font-size: 0.85rem; 
-                        letter-spacing: 1px;
+                    .stat-item p {
+                        font-size: 0.7rem;
+                        letter-spacing: 0.5px;
                     }
                 }
 
-                /* Extra small phones - Keeps the 2x2 layout but shrinks text to fit seamlessly */
+                /* Extra small phones */
                 @media (max-width: 480px) {
-                    .stats-grid { 
-                        /* Strictly maintains the 2 column layout */
-                        grid-template-columns: repeat(2, 1fr); 
-                        gap: 0.75rem; 
-                    }
-                    .stat-inner {
-                        padding: 1.5rem 0.5rem;
-                    }
-                    .text-3d {
-                        font-size: 1.6rem; /* Scaled down to fit side-by-side */
-                    }
-                    .stat-inner p {
-                        font-size: 0.7rem; /* Scaled down to prevent text wrapping awkwardly */
-                        letter-spacing: 0.5px;
-                    }
+                    .stat-item { padding: 2rem 0.5rem; }
+                    .stat-item h3 { font-size: 1.8rem; }
+                    .stat-item p { font-size: 0.65rem; }
                 }
             `}</style>
         </section>

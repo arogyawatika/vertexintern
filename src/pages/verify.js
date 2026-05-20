@@ -36,8 +36,8 @@ export default function Verify() {
     return (
         <div className="verify-wrapper">
             <Head>
-                <title>Verify Certificate | Vertex</title>
-                <meta name="description" content="Verify the authenticity of a Vertex Internship certificate." />
+                <title>Verify Certificate | Elevate Interns</title>
+                <meta name="description" content="Verify the authenticity of an Elevate Interns certificate." />
             </Head>
 
             <div className="verify-container">
@@ -49,7 +49,7 @@ export default function Verify() {
                 <form className="search-bar" onSubmit={handleVerify}>
                     <input 
                         type="text" 
-                        placeholder="Enter Certificate No. (e.g. VTX-2026-001)" 
+                        placeholder="Enter Certificate No. (e.g. ELV-2026-001)" 
                         value={searchNumber}
                         onChange={(e) => setSearchNumber(e.target.value)}
                         required
@@ -116,13 +116,13 @@ export default function Verify() {
                 }
                 .verify-header h1 { 
                     font-size: 2.8rem; 
-                    color: #1e293b; 
+                    color: #934761; /* Brand Plum */
                     font-weight: 700; 
                     margin: 0 0 1rem 0; 
                 }
-                .highlight { color: #fcab17; }
+                .highlight { color: #72BAA9; } /* Brand Teal */
                 .verify-header p { 
-                    color: #64748b; 
+                    color: #AD5C71; /* Brand Rose */
                     font-size: 1.1rem; 
                 }
 
@@ -146,10 +146,10 @@ export default function Verify() {
                     font-weight: 500;
                     transition: border 0.3s; 
                 }
-                .search-bar input:focus { border: 1px solid #145da0; }
+                .search-bar input:focus { border: 1px solid #72BAA9; } /* Brand Teal Focus */
                 
                 .search-bar button { 
-                    background: #145da0; 
+                    background: #72BAA9; /* Brand Teal */
                     color: white; 
                     border: none; 
                     padding: 0 30px; 
@@ -162,8 +162,8 @@ export default function Verify() {
                     align-items: center;
                     gap: 8px;
                 }
-                .search-bar button:hover { background: #0f4a82; }
-                .search-bar button:disabled { background: #94a3b8; cursor: not-allowed; }
+                .search-bar button:hover { background: #934761; } /* Brand Plum Hover */
+                .search-bar button:disabled { background: #cbd5e1; cursor: not-allowed; }
 
                 .result-area { margin-top: 3rem; animation: fadeIn 0.4s ease-out; }
                 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -176,6 +176,7 @@ export default function Verify() {
                     text-align: center;
                 }
                 
+                /* Keeping Error/Success Card styling identical as requested */
                 .result-card.error { border-top: 0px solid #ef4444; }
                 .result-card.error .result-icon { color: #ef4444; font-size: 4rem; margin-bottom: 1rem; }
                 .result-card.error h3 { color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0 0 0.5rem 0; }
@@ -190,7 +191,7 @@ export default function Verify() {
                 .detail-row { display: flex; flex-direction: column; gap: 4px; }
                 .detail-row .label { color: #64748b; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
                 .detail-row .value { color: #1e293b; font-size: 1.2rem; font-weight: 500; }
-                .detail-row .value.name { font-weight: 700; color: #145da0; font-size: 1.4rem; }
+                .detail-row .value.name { font-weight: 700; color: #934761; font-size: 1.4rem; } /* Updated Success Name text to Brand Plum */
 
                 @media (max-width: 768px) {
                     .verify-header h1 { font-size: 2rem; }

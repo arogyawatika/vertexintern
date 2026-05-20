@@ -9,8 +9,8 @@ export default function AboutFeatures() {
 
             <div className="container">
                 <div className="section-header">
-                    <span className="subtitle">WHY CHOOSE VERTEX INTERNSHIP</span>
-                    <h2>The Best <span className="highlight">Beneficial</span> Side<br/> of Vertex Internship</h2>
+                    <span className="subtitle">WHY CHOOSE Elevate INTERNSHIP</span>
+                    <h2>The Best <span className="highlight">Beneficial</span> Side<br/> of Elevate Internship</h2>
                     <div className="brush-stroke"></div>
                 </div>
 

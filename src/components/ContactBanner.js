@@ -9,7 +9,7 @@ export default function ContactBanner() {
                     {/* Left Side: Email */}
                     <div className="contact-block left-block">
                         <span className="label">Get In Touch:</span>
-                        <a href="mailto:info@vertexinternship.com" className="value">info@vertexinternship.com</a>
+                        <a href="mailto:info@elevateinterns.in" className="value">info@elevateinterns.in</a>
                     </div>
 
                     {/* Center: OR Circle */}
@@ -20,7 +20,7 @@ export default function ContactBanner() {
                     {/* Right Side: Phone */}
                     <div className="contact-block right-block">
                         <span className="label">Call Us Via:</span>
-                        <a href="tel:+011235641231" className="value">+01 123 5641 231</a>
+                        <a href="tel:+917903547970" className="value">+91 7903547970</a>
                     </div>
 
                 </div>

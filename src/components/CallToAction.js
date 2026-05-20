@@ -12,7 +12,7 @@ export default function CallToAction() {
                 <div className="cta-content">
                     <h2>
                         Get Your Quality Skills <span className="highlight">Certificate</span>
-                        <br className="desktop-break" /> Through Vertex Internship
+                        <br className="desktop-break" /> Through Elevate Internship
                     </h2>
                     
                     <Link href="/courses" legacyBehavior passHref>

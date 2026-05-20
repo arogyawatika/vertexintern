@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
 
                     <div className="policy-section">
                         <h2>5. Your Rights</h2>
-                        <p>You have the right to access, correct, or delete your personal information. If you wish to exercise these rights or have any questions about your data, please contact us at <a href="mailto:contact@ezyintern.com" className="email-link">contact@ezyintern.com</a>.</p>
+                        <p>You have the right to access, correct, or delete your personal information. If you wish to exercise these rights or have any questions about your data, please contact us at <a href="mailto:info@elevateinterns.in" className="email-link">info@elevateinterns.in</a>.</p>
                     </div>
 
                     <div className="policy-section">
@@ -90,20 +90,20 @@ export default function PrivacyPolicy() {
 
                     <div className="policy-section">
                         <h2>8. Contact Information</h2>
-                        <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at <a href="mailto:contact@ezyintern.com" className="email-link">contact@ezyintern.com</a>.</p>
+                        <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at <a href="mailto:info@elevateinterns.in" className="email-link">info@elevateinterns.in</a>.</p>
                     </div>
                 </div>
             </div>
 
             <style jsx>{`
                 .privacy-wrapper { 
-                    background-color: #f4f6f9; 
+                    background-color: #fcfcfc; 
                     font-family: 'Ubuntu', sans-serif; 
                     padding-bottom: 6rem;
                 }
 
                 .container { 
-                    max-width: 1000px; /* Narrower container for better reading experience */
+                    max-width: 1000px; 
                     margin: 0 auto; 
                     padding: 0 1.5rem; 
                 }
@@ -111,7 +111,7 @@ export default function PrivacyPolicy() {
                 /* --- PREMIUM PAGE HEADER --- */
                 .premium-page-header {
                     position: relative;
-                    background-color: #ffffff;
+                    background-color: #f8fafc;
                     padding: 7rem 1.5rem 5rem;
                     text-align: center;
                     margin-bottom: 3rem;
@@ -121,116 +121,39 @@ export default function PrivacyPolicy() {
                 }
 
                 .header-content { position: relative; z-index: 10; }
-                .premium-page-header h1 { font-size: 3.5rem; color: #1e293b; font-weight: 700; margin: 0 0 1rem 0; letter-spacing: -0.5px; }
+                .premium-page-header h1 { font-size: 3.5rem; color: #934761; font-weight: 700; margin: 0 0 1rem 0; letter-spacing: -0.5px; } /* Brand Plum */
                 .breadcrumb { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center; gap: 0.75rem; font-size: 1.15rem; font-weight: 500; color: #0f172a; }
                 .crumb-link { color: #0f172a; text-decoration: none; transition: color 0.3s ease; }
-                .crumb-link:hover { color: #145da0; }
+                .crumb-link:hover { color: #72BAA9; } /* Brand Teal */
                 .separator { color: #cbd5e1; font-weight: 400; font-size: 0.9rem; }
                 .active { color: #0f172a; }
 
-                /* Decorative Shapes */
-                .shape-dots { position: absolute; left: 12%; top: 50%; transform: translateY(-50%); width: 140px; height: 140px; background-image: radial-gradient(#145da0 2.5px, transparent 2.5px); background-size: 20px 20px; border-radius: 50%; opacity: 0.2; }
-                .shape-zigzag { position: absolute; right: 15%; top: 45%; width: 50px; height: 25px; background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23fcab17' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; }
-                .shape-red-dots { position: absolute; right: 0; top: 10%; width: 30px; height: 120px; background-image: radial-gradient(#ef4444 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.7; }
+                /* Decorative Shapes using Brand Colors */
+                .shape-dots { position: absolute; left: 12%; top: 50%; transform: translateY(-50%); width: 140px; height: 140px; background-image: radial-gradient(#72BAA9 2.5px, transparent 2.5px); background-size: 20px 20px; border-radius: 50%; opacity: 0.3; }
+                .shape-zigzag { position: absolute; right: 15%; top: 45%; width: 50px; height: 25px; background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23D5E7B5' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; }
+                .shape-red-dots { position: absolute; right: 0; top: 10%; width: 30px; height: 120px; background-image: radial-gradient(#AD5C71 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.5; }
                 .shape-arc { position: absolute; right: -10%; bottom: -40%; width: 500px; height: 500px; border: 1px solid #e2e8f0; border-radius: 50%; z-index: 0; }
                 .shape-arc-left { position: absolute; left: -5%; top: -20%; width: 300px; height: 300px; border: 1px solid #e2e8f0; border-radius: 50%; z-index: 0; }
 
                 /* --- POLICY CONTENT --- */
-                .policy-card {
-                    background: #ffffff;
-                    padding: 4rem;
-                    border-radius: 12px;
-                    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-                }
+                .policy-card { background: #ffffff; padding: 4rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+                .intro-text { font-size: 1.15rem; color: #475569; line-height: 1.8; margin-bottom: 3rem; font-weight: 500; border-left: 4px solid #72BAA9; padding-left: 1.5rem; } /* Brand Teal */
 
-                .intro-text {
-                    font-size: 1.15rem;
-                    color: #475569;
-                    line-height: 1.8;
-                    margin-bottom: 3rem;
-                    font-weight: 500;
-                    border-left: 4px solid #fcab17;
-                    padding-left: 1.5rem;
-                }
+                .policy-section { margin-bottom: 2.5rem; }
+                .policy-section h2 { font-size: 1.7rem; color: #934761; font-weight: 700; margin: 0 0 1.2rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid #f1f5f9; } /* Brand Plum */
+                .policy-section h3 { font-size: 1.2rem; color: #1e293b; font-weight: 700; margin: 1.5rem 0 0.5rem 0; }
+                .policy-section p { font-size: 1.05rem; color: #64748b; line-height: 1.8; margin: 0 0 1rem 0; }
 
-                .policy-section {
-                    margin-bottom: 2.5rem;
-                }
-                .policy-section:last-child {
-                    margin-bottom: 0;
-                }
+                .email-link { color: #934761; font-weight: 600; text-decoration: none; transition: color 0.2s; } /* Brand Plum */
+                .email-link:hover { color: #72BAA9; text-decoration: underline; } /* Brand Teal */
 
-                .policy-section h2 {
-                    font-size: 1.7rem;
-                    color: #145da0; /* Brand Blue */
-                    font-weight: 700;
-                    margin: 0 0 1.2rem 0;
-                    padding-bottom: 0.5rem;
-                    border-bottom: 1px solid #f1f5f9;
-                }
-
-                .policy-section h3 {
-                    font-size: 1.2rem;
-                    color: #1e293b;
-                    font-weight: 700;
-                    margin: 1.5rem 0 0.5rem 0;
-                }
-
-                /* Default Desktop Text Size */
-                .policy-section p {
-                    font-size: 1.05rem;
-                    color: #64748b;
-                    line-height: 1.8;
-                    margin: 0 0 1rem 0;
-                }
-
-                .email-link {
-                    color: #145da0;
-                    font-weight: 600;
-                    text-decoration: none;
-                    transition: color 0.2s;
-                }
-                .email-link:hover {
-                    color: #fcab17;
-                    text-decoration: underline;
-                }
-
-                /* --- MOBILE RESPONSIVE UI --- */
                 @media (max-width: 768px) {
-                    .privacy-wrapper {
-                        padding-bottom: 4rem;
-                    }
-                    .premium-page-header { 
-                        padding: 5rem 1rem 3rem; 
-                        margin-bottom: 2rem; 
-                        border-radius: 0; 
-                    }
+                    .privacy-wrapper { padding-bottom: 4rem; }
+                    .premium-page-header { padding: 5rem 1rem 3rem; margin-bottom: 2rem; border-radius: 0; }
                     .premium-page-header h1 { font-size: 2.2rem; }
                     .shape-dots, .shape-zigzag, .shape-red-dots, .shape-arc, .shape-arc-left { display: none; }
-
-                    .policy-card {
-                        padding: 2rem 1.5rem;
-                    }
-
-                    .intro-text {
-                        font-size: 1rem;
-                        padding-left: 1rem;
-                        margin-bottom: 2rem;
-                    }
-
-                    .policy-section h2 {
-                        font-size: 1.4rem;
-                    }
-                    .policy-section h3 {
-                        font-size: 1.1rem;
-                        margin: 1.2rem 0 0.5rem 0;
-                    }
-
-                    /* SMALLER TEXT ON MOBILE AS REQUESTED */
-                    .policy-section p {
-                        font-size: 0.9rem;
-                        line-height: 1.6;
-                    }
+                    .policy-card { padding: 2rem 1.5rem; }
+                    .policy-section p { font-size: 0.9rem; }
                 }
             `}</style>
         </div>

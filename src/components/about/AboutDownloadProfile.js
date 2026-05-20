@@ -46,13 +46,13 @@ export default function AboutDownloadProfile() {
                 }
                 
                 .download-card {
-                    background: linear-gradient(135deg, #145da0 0%, #0b3964 100%);
+                    background: linear-gradient(135deg, #934761 0%, #AD5C71 100%); /* Brand Plum to Rose */
                     border-radius: 12px;
                     padding: 2.5rem 3.5rem;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    box-shadow: 0 15px 30px rgba(20, 93, 160, 0.15);
+                    box-shadow: 0 15px 30px rgba(147, 71, 97, 0.2); /* Tinted shadow using Plum */
                     position: relative;
                     overflow: hidden;
                 }
@@ -63,7 +63,7 @@ export default function AboutDownloadProfile() {
                     top: -50%;
                     width: 350px;
                     height: 350px;
-                    background: radial-gradient(circle, rgba(252, 171, 23, 0.15) 0%, transparent 70%);
+                    background: radial-gradient(circle, rgba(213, 231, 181, 0.25) 0%, transparent 70%); /* Brand Light Green */
                     border-radius: 50%;
                     pointer-events: none;
                 }
@@ -78,7 +78,7 @@ export default function AboutDownloadProfile() {
 
                 .icon-wrapper {
                     font-size: 3.5rem;
-                    color: #fcab17;
+                    color: #D5E7B5; /* Brand Light Green */
                     display: flex;
                     align-items: center;
                 }
@@ -91,14 +91,14 @@ export default function AboutDownloadProfile() {
                     letter-spacing: -0.5px;
                 }
                 .text-content p {
-                    color: #cbd5e1;
+                    color: rgba(255, 255, 255, 0.85); /* Slightly muted white for readability */
                     font-size: 1.05rem;
                     margin: 0;
                     line-height: 1.5;
                 }
 
                 .btn-download {
-                    background-color: #fcab17;
+                    background-color: #72BAA9; /* Brand Teal */
                     color: #ffffff;
                     text-decoration: none;
                     padding: 16px 32px;
@@ -112,11 +112,12 @@ export default function AboutDownloadProfile() {
                     position: relative;
                     z-index: 1;
                     white-space: nowrap;
-                    border: 2px solid #fcab17;
+                    border: 2px solid #72BAA9; /* Brand Teal */
                 }
                 .btn-download:hover {
                     background-color: transparent;
-                    color: #fcab17;
+                    color: #D5E7B5; /* Brand Light Green on hover */
+                    border-color: #D5E7B5;
                 }
                 
                 :global(.dl-icon) {

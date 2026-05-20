@@ -28,42 +28,41 @@ export default function Footer() {
                     <div className="footer-widget brand-widget">
                         <Link href="/" legacyBehavior passHref>
                             <a className="footer-logo-link">
-                                <img src="/logo.png" alt="Vertex Internship Logo" className="footer-logo" />
+                                <img src="/logo.png" alt="Elevate Interns Logo" className="footer-logo" />
                             </a>
                         </Link>
                         <p className="desc">
-                            Lorem ipsum dolor amet consecto adi pisicing elit sed eiusm tempor incidid unt labore dolore.
+                            Elevate Interns is dedicated to bridging the gap between academia and industry with premium training and recognized certifications.
                         </p>
                         <ul className="contact-info">
-                            <li><strong>Add:</strong> 70-80 Upper St Norwich NR2</li>
-                            <li><strong>Call:</strong> +01 123 5641 231</li>
-                            <li><strong>Email:</strong> info@vertexinternship.com</li>
+                            <li><strong>Add:</strong> Brij Mohan Thakur Lane, Barari Road, Bhagalpur, Bihar, 812003</li>
+                            <li><strong>Call:</strong> +91 7903547970</li>
+                            <li><strong>Email:</strong> info@elevateinterns.in</li>
                         </ul>
                     </div>
 
-                    {/* Column 2: Online Platform Links */}
+                    {/* Column 2: Quick Links (Updated to your actual pages) */}
                     <div className="footer-widget">
-                        <h4>Online Platform</h4>
+                        <h4>Quick Links</h4>
                         <ul className="footer-links">
-                            <li><Link href="#" legacyBehavior passHref><a>About</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Courses</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Instructor</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Events</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Instructor Profile</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Purchase Guide</a></Link></li>
+                            <li><Link href="/" legacyBehavior passHref><a>Home</a></Link></li>
+                            <li><Link href="/about" legacyBehavior passHref><a>About Us</a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a>Courses</a></Link></li>
+                            <li><Link href="/verify" legacyBehavior passHref><a>Verify Certificate</a></Link></li>
+                            <li><Link href="/admin" legacyBehavior passHref><a>Admin Login</a></Link></li>
+                            <li><Link href="/contact" legacyBehavior passHref><a>Contact Us</a></Link></li>
                         </ul>
                     </div>
 
-                    {/* Column 3: Quick Links */}
+                    {/* Column 3: Legal Links */}
                     <div className="footer-widget">
-                        <h4>Links</h4>
+                        <h4>Legal</h4>
                         <ul className="footer-links">
-                            <li><Link href="#" legacyBehavior passHref><a>Contact Us</a></Link></li>
                             <li><Link href="/privacy" legacyBehavior passHref><a>Privacy Policy</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>News & Articles</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>FAQ's</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Sign In/Registration</a></Link></li>
-                            <li><Link href="#" legacyBehavior passHref><a>Coming Soon</a></Link></li>
+                            <li><Link href="/terms" legacyBehavior passHref><a>Terms & Conditions</a></Link></li>
+                            <li><Link href="/refund" legacyBehavior passHref><a>Refund Policy</a></Link></li>
+                            <li><Link href="/faq" legacyBehavior passHref><a>FAQ's</a></Link></li>
+                            <li><Link href="/support" legacyBehavior passHref><a>Help & Support</a></Link></li>
                         </ul>
                     </div>
 
@@ -93,7 +92,7 @@ export default function Footer() {
             <div className="footer-bottom">
                 <div className="container bottom-flex">
                     <p>
-                        Copyright {new Date().getFullYear()} <span className="brand-text">Vertex Internship</span> Designed By <a href="https://opticoda.vercel.app/" target="_blank" rel="noopener noreferrer" className="developer-link">Opticoda</a>. All Rights Reserved
+                        Copyright {new Date().getFullYear()} <span className="brand-text">Elevate Interns</span> Designed By <a href="https://opticoda.vercel.app/" target="_blank" rel="noopener noreferrer" className="developer-link">Opticoda</a>. All Rights Reserved
                     </p>
                     <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
                         <IoArrowUpOutline />
@@ -103,9 +102,10 @@ export default function Footer() {
 
             <style jsx>{`
                 .footer {
-                    font-family: sans-serif;
-                    background-color: #f4f6f9; /* Light background matching design */
+                    font-family: 'Ubuntu', sans-serif;
+                    background-color: #f8fafc; /* Light background matching design */
                     color: #475569;
+                    border-top: 1px solid #e2e8f0;
                 }
 
                 .container {
@@ -127,7 +127,7 @@ export default function Footer() {
 
                 .footer-widget h4 {
                     font-size: 1.25rem;
-                    color: #1e293b;
+                    color: #934761; /* Brand Plum */
                     font-weight: 700;
                     margin: 0 0 1.5rem 0;
                 }
@@ -178,7 +178,7 @@ export default function Footer() {
                     font-size: 0.95rem;
                 }
                 .footer-links a:hover {
-                    color: #145da0; /* Brand Blue */
+                    color: #72BAA9; /* Brand Teal */
                 }
 
                 /* Newsletter & Socials */
@@ -205,11 +205,11 @@ export default function Footer() {
                     transition: border-color 0.3s;
                 }
                 .newsletter-form input:focus {
-                    border-color: #145da0;
+                    border-color: #72BAA9; /* Brand Teal */
                 }
                 
                 .btn-subscribe {
-                    background-color: #145da0; /* Brand Blue */
+                    background-color: #72BAA9; /* Brand Teal */
                     color: #ffffff;
                     border: none;
                     padding: 0 20px;
@@ -219,7 +219,7 @@ export default function Footer() {
                     transition: background-color 0.3s;
                 }
                 .btn-subscribe:hover {
-                    background-color: #0f4a82;
+                    background-color: #934761; /* Brand Plum Hover */
                 }
 
                 .social-links {
@@ -228,21 +228,17 @@ export default function Footer() {
                 }
                 .social-icon {
                     font-size: 1.25rem;
+                    color: #AD5C71; /* Brand Rose */
                     transition: transform 0.3s, color 0.3s;
                 }
                 .social-icon:hover {
                     transform: translateY(-3px);
+                    color: #72BAA9; /* Brand Teal */
                 }
-                /* Optional: Native brand colors for social icons */
-                .fb { color: #1877F2; }
-                .in { color: #0A66C2; }
-                .ig { color: #E4405F; }
-                .tw { color: #1DA1F2; }
-                .yt { color: #FF0000; }
 
                 /* --- Footer Bottom --- */
                 .footer-bottom {
-                    background-color: #e2e8f0; /* Slightly darker than top to separate */
+                    background-color: #f1f5f9; /* Slightly darker than top to separate */
                     padding: 1.5rem 0;
                 }
                 
@@ -261,18 +257,18 @@ export default function Footer() {
                 }
 
                 .brand-text {
-                    color: #145da0;
+                    color: #934761; /* Brand Plum */
                     font-weight: 700;
                 }
 
                 .developer-link {
-                    color: #fcab17; /* Brand Accent */
+                    color: #72BAA9; /* Brand Teal */
                     text-decoration: none;
                     font-weight: 700;
                     transition: color 0.3s;
                 }
                 .developer-link:hover {
-                    color: #e59a15;
+                    color: #934761; /* Brand Plum Hover */
                     text-decoration: underline;
                 }
 
@@ -280,8 +276,8 @@ export default function Footer() {
                     position: absolute;
                     right: 1.5rem;
                     background: transparent;
-                    border: 2px solid #ef4444; /* Match reference red outline */
-                    color: #ef4444;
+                    border: 2px solid #72BAA9; /* Brand Teal */
+                    color: #72BAA9; /* Brand Teal */
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
@@ -293,7 +289,7 @@ export default function Footer() {
                     transition: all 0.3s;
                 }
                 .scroll-top-btn:hover {
-                    background: #ef4444;
+                    background: #72BAA9; /* Brand Teal Hover */
                     color: white;
                 }
 

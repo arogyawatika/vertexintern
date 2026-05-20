@@ -141,7 +141,7 @@ export default function Courses() {
                 })
             });
 
-            const text = `Hello Vertex Internship, I am interested in enrolling for the course: *${selectedCourse.title}*. My name is ${enrollName} and my contact number is ${enrollPhone}.`;
+            const text = `Hello Elevate Internship, I am interested in enrolling for the course: *${selectedCourse.title}*. My name is ${enrollName} and my contact number is ${enrollPhone}.`;
             const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 
             window.open(waUrl, '_blank');
@@ -155,7 +155,7 @@ export default function Courses() {
 
     return (
         <div className="courses-wrapper">
-            <Head><title>All Courses & Internships | Vertex</title></Head>
+            <Head><title>All Courses & Internships | Elevate</title></Head>
 
             {/* --- PREMIUM HEADER (Moved OUTSIDE the container for full width) --- */}
             <div className="premium-page-header">
@@ -201,7 +201,7 @@ export default function Courses() {
                                     <div className="premium-fallback">
                                         <div className="fallback-pattern"></div>
                                         <IoBookOutline className="fallback-icon" />
-                                        <span className="fallback-text">Vertex Internship</span>
+                                        <span className="fallback-text">Elevate Internship</span>
                                     </div>
                                 )}
                             </div>
@@ -307,7 +307,7 @@ export default function Courses() {
 
                 .premium-page-header h1 {
                     font-size: 3.5rem;
-                    color: #1e293b;
+                    color: #934761; /* Brand Plum */
                     font-weight: 700;
                     margin: 0 0 1rem 0;
                     letter-spacing: -0.5px;
@@ -333,7 +333,7 @@ export default function Courses() {
                 }
 
                 .crumb-link:hover {
-                    color: #145da0; /* Brand Blue */
+                    color: #72BAA9; /* Brand Teal */
                 }
 
                 .separator {
@@ -365,7 +365,7 @@ export default function Courses() {
                     transform: translateY(-50%);
                     width: 140px;
                     height: 140px;
-                    background-image: radial-gradient(#1bba93 2.5px, transparent 2.5px);
+                    background-image: radial-gradient(#72BAA9 2.5px, transparent 2.5px); /* Brand Teal */
                     background-size: 20px 20px;
                     border-radius: 50%;
                     opacity: 0.8;
@@ -377,8 +377,8 @@ export default function Courses() {
                     top: 45%;
                     width: 50px;
                     height: 25px;
-                    /* Clean SVG data URI for the teal zigzag */
-                    background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%231bba93' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E");
+                    /* Clean SVG data URI for the teal zigzag using %2372BAA9 */
+                    background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%2372BAA9' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E");
                     background-repeat: no-repeat;
                 }
 
@@ -388,7 +388,7 @@ export default function Courses() {
                     top: 10%;
                     width: 30px;
                     height: 120px;
-                    background-image: radial-gradient(#ef4444 2.5px, transparent 2.5px);
+                    background-image: radial-gradient(#AD5C71 2.5px, transparent 2.5px); /* Brand Rose */
                     background-size: 20px 20px;
                     opacity: 0.7;
                 }
@@ -451,7 +451,7 @@ export default function Courses() {
                 .premium-fallback {
                     width: 100%;
                     height: 100%;
-                    background: linear-gradient(135deg, #0b3964 0%, #145da0 100%);
+                    background: linear-gradient(135deg, #934761 0%, #AD5C71 100%); /* Brand Plum to Rose Gradient */
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -469,7 +469,7 @@ export default function Courses() {
 
                 :global(.fallback-icon) {
                     font-size: 4.5rem;
-                    color: #fcab17; /* Brand Accent */
+                    color: #D5E7B5; /* Brand Light Green */
                     margin-bottom: 0.5rem;
                     z-index: 1;
                     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
@@ -486,19 +486,19 @@ export default function Courses() {
 
                 /* Content Area */
                 .card-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-                .category-tag { background-color: #fee2e2; color: #ef4444; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 500; display: inline-block; width: fit-content; margin-bottom: 1rem; }
+                .category-tag { background-color: rgba(173, 92, 113, 0.1); color: #AD5C71; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 500; display: inline-block; width: fit-content; margin-bottom: 1rem; }
                 .card-content h3 { font-size: 1.25rem; color: #0f172a; font-weight: 700; margin: 0 0 1rem 0; line-height: 1.4; }
                 .card-content p { color: #64748b; font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.5rem 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-                .btn-enroll { background-color: #145da0; color: #ffffff; border: none; padding: 12px; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background-color 0.3s; width: 100%; font-family: inherit; margin-top: auto; }
-                .btn-enroll:hover { background-color: #0f4a82; }
+                .btn-enroll { background-color: #72BAA9; color: #ffffff; border: none; padding: 12px; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background-color 0.3s; width: 100%; font-family: inherit; margin-top: auto; } /* Brand Teal */
+                .btn-enroll:hover { background-color: #934761; } /* Brand Plum Hover */
 
                 /* Pagination */
                 .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 4rem; flex-wrap: wrap; }
                 .page-btn { background: #ffffff; border: 1px solid #cbd5e1; color: #475569; width: 40px; height: 40px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
                 .page-btn.prev-next { width: auto; padding: 0 15px; }
-                .page-btn:hover:not(:disabled) { background: #f1f5f9; border-color: #145da0; color: #145da0; }
-                .page-btn.active { background: #145da0; color: #ffffff; border-color: #145da0; }
+                .page-btn:hover:not(:disabled) { background: #f1f5f9; border-color: #72BAA9; color: #72BAA9; } /* Brand Teal */
+                .page-btn.active { background: #72BAA9; color: #ffffff; border-color: #72BAA9; } /* Brand Teal */
                 .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
                 /* Modal Overlay & Content */
@@ -507,19 +507,19 @@ export default function Courses() {
                 @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
                 .btn-close { position: absolute; top: 15px; right: 15px; background: #f1f5f9; border: none; font-size: 1.5rem; color: #64748b; width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
-                .btn-close:hover { background: #e2e8f0; color: #ef4444; }
+                .btn-close:hover { background: #e2e8f0; color: #AD5C71; } /* Brand Rose */
 
-                .modal-content h2 { color: #145da0; font-weight: 700; margin: 0 0 1.5rem 0; font-size: 1.6rem; text-align: center;}
-                .selected-course-badge { background: #fffbeb; color: #b45309; padding: 12px; border-radius: 8px; border: 1px solid #fde68a; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.4; }
+                .modal-content h2 { color: #934761; font-weight: 700; margin: 0 0 1.5rem 0; font-size: 1.6rem; text-align: center;} /* Brand Plum */
+                .selected-course-badge { background: rgba(213, 231, 181, 0.3); color: #934761; padding: 12px; border-radius: 8px; border: 1px solid #D5E7B5; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.4; } /* Brand Light Green & Plum */
 
                 .enroll-form { display: flex; flex-direction: column; gap: 1rem; }
                 .input-group { display: flex; flex-direction: column; gap: 6px; }
                 .input-group label { font-size: 0.9rem; font-weight: 700; color: #1e293b; }
                 .input-group input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s; }
-                .input-group input:focus { border-color: #145da0; }
+                .input-group input:focus { border-color: #72BAA9; } /* Brand Teal */
 
-                .btn-submit { background: #fcab17; color: #ffffff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; }
-                .btn-submit:hover:not(:disabled) { background: #e59a15; }
+                .btn-submit { background: #72BAA9; color: #ffffff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; } /* Brand Teal */
+                .btn-submit:hover:not(:disabled) { background: #934761; } /* Brand Plum */
                 .btn-submit:disabled { opacity: 0.7; cursor: wait; }
 
                 /* Responsive */

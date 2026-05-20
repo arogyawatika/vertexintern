@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="main-wrapper">
       <Head>
-        <title>Vertex Intern | Internship & Training Certifications</title>
+        <title>Elevate Intern | Internship & Training Certifications</title>
         <meta name="description" content="Best remote training and internship courses." />
       </Head>
 

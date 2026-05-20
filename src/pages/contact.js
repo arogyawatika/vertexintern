@@ -22,7 +22,7 @@ export default function Contact() {
         e.preventDefault();
         
         // Construct the message
-        const text = `Hello Vertex Internship! \n\n*Name:* ${name} \n*Phone:* ${phone} \n*Message:* ${message}`;
+        const text = `Hello Elevate Internship! \n\n*Name:* ${name} \n*Phone:* ${phone} \n*Message:* ${message}`;
         
         // Encode and redirect
         const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -36,7 +36,7 @@ export default function Contact() {
 
     return (
         <div className="contact-wrapper">
-            <Head><title>Contact Us | Vertex Internship</title></Head>
+            <Head><title>Contact Us | Elevate Internship</title></Head>
 
             {/* --- PREMIUM FULL-WIDTH HEADER --- */}
             <div className="premium-page-header">
@@ -69,17 +69,17 @@ export default function Contact() {
                         <div className="info-blocks">
                             <div className="info-item">
                                 <h3>Address</h3>
-                                <p>Beside NRI Plaza, Near Rajeev Nagar Naala,<br/>Rajeev Nagar, Patna-800024</p>
+                                <p>Brij Mohan Thakur Lane, Barari Road, <br/>Bhagalpur, Bihar, 812003</p>
                             </div>
                             
                             <div className="info-item">
                                 <h3>Email</h3>
-                                <a href="mailto:info@vertexinternship.com">info@vertexinternship.com</a>
+                                <a href="mailto:info@elevateinterns.in">info@elevateinterns.in</a>
                             </div>
                             
                             <div className="info-item">
                                 <h3>Phone</h3>
-                                <a href="tel:+916205782002">+91 99311 60839</a>
+                                <a href="tel:+917903547970">+91 7903547970</a>
                             </div>
                         </div>
 
@@ -140,7 +140,7 @@ export default function Contact() {
                                     ></textarea>
                                 </div>
                                 <button type="submit" className="btn-submit">
-                                    Submit Message &rarr;
+                                    Submit Message →
                                 </button>
                             </form>
                         </div>
@@ -159,7 +159,7 @@ export default function Contact() {
                     allowFullScreen="" 
                     loading="lazy" 
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Vertex Internship Location"
+                    title="Elevate Internship Location"
                 ></iframe>
             </div>
 
@@ -188,17 +188,17 @@ export default function Contact() {
                 }
 
                 .header-content { position: relative; z-index: 10; }
-                .premium-page-header h1 { font-size: 3.5rem; color: #1e293b; font-weight: 700; margin: 0 0 1rem 0; letter-spacing: -0.5px; }
+                .premium-page-header h1 { font-size: 3.5rem; color: #934761; font-weight: 700; margin: 0 0 1rem 0; letter-spacing: -0.5px; } /* Brand Plum */
                 .breadcrumb { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center; gap: 0.75rem; font-size: 1.15rem; font-weight: 500; color: #0f172a; }
                 .crumb-link { color: #0f172a; text-decoration: none; transition: color 0.3s ease; }
-                .crumb-link:hover { color: #145da0; }
+                .crumb-link:hover { color: #72BAA9; } /* Brand Teal */
                 .separator { color: #cbd5e1; font-weight: 400; font-size: 0.9rem; }
                 .active { color: #0f172a; }
 
                 /* Decorative Shapes */
-                .shape-dots { position: absolute; left: 12%; top: 50%; transform: translateY(-50%); width: 140px; height: 140px; background-image: radial-gradient(#145da0 2.5px, transparent 2.5px); background-size: 20px 20px; border-radius: 50%; opacity: 0.2; }
-                .shape-zigzag { position: absolute; right: 15%; top: 45%; width: 50px; height: 25px; background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23fcab17' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; }
-                .shape-red-dots { position: absolute; right: 0; top: 10%; width: 30px; height: 120px; background-image: radial-gradient(#ef4444 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.7; }
+                .shape-dots { position: absolute; left: 12%; top: 50%; transform: translateY(-50%); width: 140px; height: 140px; background-image: radial-gradient(#72BAA9 2.5px, transparent 2.5px); background-size: 20px 20px; border-radius: 50%; opacity: 0.3; } /* Brand Teal */
+                .shape-zigzag { position: absolute; right: 15%; top: 45%; width: 50px; height: 25px; background-image: url("data:image/svg+xml,%3Csvg width='50' height='25' viewBox='0 0 50 25' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23D5E7B5' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 14l10-4 10 4 10-4 10 4'/%3E%3Cpath d='M2 22l10-4 10 4 10-4 10 4'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; } /* Brand Light Green */
+                .shape-red-dots { position: absolute; right: 0; top: 10%; width: 30px; height: 120px; background-image: radial-gradient(#AD5C71 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.7; } /* Brand Rose */
                 .shape-arc { position: absolute; right: -10%; bottom: -40%; width: 500px; height: 500px; border: 1px solid #e2e8f0; border-radius: 50%; z-index: 0; }
                 .shape-arc-left { position: absolute; left: -5%; top: -20%; width: 300px; height: 300px; border: 1px solid #e2e8f0; border-radius: 50%; z-index: 0; }
 
@@ -223,14 +223,14 @@ export default function Contact() {
 
                 .info-blocks { display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2.5rem; }
                 
-                .info-item h3 { font-size: 1.1rem; color: #1e293b; font-weight: 700; margin: 0 0 0.5rem 0; }
+                .info-item h3 { font-size: 1.1rem; color: #934761; font-weight: 700; margin: 0 0 0.5rem 0; } /* Brand Plum */
                 .info-item p, .info-item a { color: #64748b; font-size: 1rem; line-height: 1.6; text-decoration: none; transition: color 0.3s; }
-                .info-item a:hover { color: #145da0; }
+                .info-item a:hover { color: #72BAA9; } /* Brand Teal */
 
                 .social-actions { display: flex; flex-direction: column; gap: 1.5rem; border-top: 1px solid #e2e8f0; padding-top: 2rem; }
                 .social-icons { display: flex; gap: 15px; }
                 .s-icon { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 1.2rem; transition: all 0.3s; text-decoration: none; }
-                .s-icon:hover { background-color: #145da0; color: #fff; border-color: #145da0; transform: translateY(-3px); }
+                .s-icon:hover { background-color: #934761; color: #fff; border-color: #934761; transform: translateY(-3px); } /* Brand Plum */
 
                 .btn-direct-wa { 
                     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -242,8 +242,8 @@ export default function Contact() {
                 /* Right Column: Form Card */
                 .contact-form-column { position: relative; }
 
-                .form-decor-circle { position: absolute; top: -30px; right: -20px; width: 120px; height: 120px; border: 6px dashed #ef4444; border-radius: 50%; z-index: 0; animation: rotate 20s linear infinite; }
-                .form-decor-dots { position: absolute; bottom: -30px; right: -40px; width: 140px; height: 140px; background-image: radial-gradient(#145da0 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.2; z-index: 0; }
+                .form-decor-circle { position: absolute; top: -30px; right: -20px; width: 120px; height: 120px; border: 6px dashed #AD5C71; border-radius: 50%; z-index: 0; animation: rotate 20s linear infinite; } /* Brand Rose */
+                .form-decor-dots { position: absolute; bottom: -30px; right: -40px; width: 140px; height: 140px; background-image: radial-gradient(#72BAA9 2.5px, transparent 2.5px); background-size: 20px 20px; opacity: 0.3; z-index: 0; } /* Brand Teal */
                 
                 @keyframes rotate { 100% { transform: rotate(360deg); } }
 
@@ -274,11 +274,11 @@ export default function Contact() {
                     background: transparent;
                 }
                 .input-group input::placeholder, .input-group textarea::placeholder { color: #94a3b8; }
-                .input-group input:focus, .input-group textarea:focus { border-bottom-color: #145da0; }
+                .input-group input:focus, .input-group textarea:focus { border-bottom-color: #72BAA9; } /* Brand Teal */
                 .input-group textarea { resize: vertical; }
 
                 .btn-submit { 
-                    background-color: #145da0; /* Brand Blue */
+                    background-color: #934761; /* Brand Plum */
                     color: #ffffff; 
                     border: none; 
                     padding: 16px 32px; 
@@ -290,7 +290,7 @@ export default function Contact() {
                     width: fit-content;
                     margin-top: 1rem;
                 }
-                .btn-submit:hover { background-color: #0f4a82; }
+                .btn-submit:hover { background-color: #72BAA9; } /* Brand Teal Hover */
 
                 /* --- MAP SECTION --- */
                 .map-section { line-height: 0; } /* Removes gap below iframe */
