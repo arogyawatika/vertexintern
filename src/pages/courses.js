@@ -18,7 +18,7 @@ const allCourses = [
     { id: 21, image: '/images/courses/21.jpg', title: '3D MAX', category: 'Civil Design', desc: "Civil Engineering Design (Interior/Exterior)." },
     { id: 22, image: '/images/courses/22.jpg', title: 'REVIT DESIGN', category: 'Mech Design', desc: "Mechanical Engineering Design." },
     { id: 23, image: '/images/courses/23.jpg', title: 'STEEL STRUCTURE DESIGN', category: 'Civil Design', desc: "Steel Structure Design in buildings and Apartments." },
-    
+
     // Management & Automation
     { id: 24, image: '/images/courses/24.jpg', title: 'BUILDING CONSTRUCTION MANAGEMENT', category: 'Management', desc: "Buildings and apartments construction management." },
     { id: 25, image: '/images/courses/25.jpg', title: 'TOWNSHIP DEVELOPMENT MANAGEMENT', category: 'Management', desc: "Township Development management training." },
@@ -28,7 +28,7 @@ const allCourses = [
     { id: 29, image: '/images/courses/29.jpg', title: 'INDUTRIAL AUTOMATION USING PLC & SCADA', category: 'Automation', desc: "Industrial Automation using PLC & SCADA." },
     { id: 30, image: '/images/courses/30.jpg', title: 'EMBEDDED SYSTEM', category: 'Electronics', desc: "Study about Embedded Systems." },
     { id: 31, image: '/images/courses/31.jpg', title: 'ROBOTICS', category: 'Robotics', desc: "Study about Robot and Robotics projects." },
-    
+
     // Electrical/Electronics
     { id: 32, image: '/images/courses/32.jpg', title: 'ELECTRICAL MEASUREMENT & INSTRUMENTATION', category: 'Electrical', desc: "Study about Electrical measurement and instrumentation." },
     { id: 33, image: '/images/courses/33.jpg', title: 'ELECTRONICS MEASUREMENT & INSTRUMENTATION', category: 'Electronics', desc: "Study about Electronics measurement and instrumentation." },
@@ -36,7 +36,7 @@ const allCourses = [
     { id: 35, image: '/images/courses/35.jpg', title: 'ELECTRICAL MAINTENANCE', category: 'Electrical', desc: "Electrical maintenance works." },
     { id: 36, image: '/images/courses/36.jpg', title: 'SOLAR SYSTEM INSTALLATION', category: 'Electrical', desc: "Study about solar system installation." },
     { id: 37, image: '/images/courses/37.jpg', title: 'COMMUNICATION SYSTEM', category: 'Electronics', desc: "Study about communication systems." },
-    
+
     // Software & Web Development
     { id: 38, image: '/images/courses/38.jpg', title: 'WEB DESIGN USING HTML, CSS & JAVA SCRIPT', category: 'Web Dev', desc: "Web design using HTML, CSS and Java Script." },
     { id: 39, image: '/images/courses/39.jpg', title: 'WEB DEVELOPMENT USING PHP & MYSQL', category: 'Web Dev', desc: "Web development in PHP." },
@@ -58,7 +58,7 @@ const allCourses = [
     { id: 55, image: '/images/courses/55.jpg', title: 'ARTIFICIAL INTELLIGENCE', category: 'Emerging Tech', desc: "Study about Artificial Intelligence (AI)." },
     { id: 56, image: '/images/courses/56.jpg', title: 'J2EE (Advance JAVA)', category: 'Programming', desc: "Study about J2EE (Advance Java)." },
 
-        // Vocational
+    // Vocational
     { id: 1, image: '/images/courses/1.jpg', title: 'CCCA (Certificate Course in Computer Application)', category: 'Computer Basics', desc: "Basic operation knowledge about computer and it's applications." },
     { id: 2, image: '/images/courses/2.jpg', title: 'BCCCA (Beginners Certificate in Computer)', category: 'Computer Basics', desc: "Basic operation knowledge for school students below 10th class." },
     { id: 3, image: '/images/courses/3.jpg', title: 'DCA (Diploma in Computer Application)', category: 'Computer Basics', desc: "Basic operational knowledge about computer and its applications with internet." },
@@ -70,19 +70,19 @@ const allCourses = [
     { id: 9, image: '/images/courses/9.jpg', title: 'ACCOUNTANCY (DFA)', category: 'Finance', desc: "Complete knowledge of working in account section of any organization." },
     { id: 10, image: '/images/courses/10.jpg', title: 'Typing (Hindi)', category: 'Skill Development', desc: "Hindi typing training for better typing experience." },
     { id: 11, image: '/images/courses/11.jpg', title: 'COMPUTER PROFICIENCY', category: 'Computer Basics', desc: "Advance knowledge about computer applications, internet and web technologies." }
-    
+
 ];
 
 const ITEMS_PER_PAGE = 9;
-const WHATSAPP_NUMBER = "916205782002"; 
+const WHATSAPP_NUMBER = "916205782002";
 
 export default function Courses() {
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     // Track broken images by course ID
     const [imageErrors, setImageErrors] = useState({});
-    
+
     // Modal States
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState(null);
@@ -181,20 +181,20 @@ export default function Courses() {
             {/* --- MAIN CONTENT CONTAINER --- */}
             <div className="container">
                 {/* Course Counter */}
-                
+
 
                 <div className="course-grid">
                     {/* ... your existing mapping logic ... */}
                     {currentCourses.map((course) => (
                         <div key={course.id} className="course-card">
-                            
+
                             {/* Card Image Area with Premium Fallback */}
                             <div className="card-image-wrapper">
                                 {!imageErrors[course.id] ? (
-                                    <img 
-                                        src={course.image || '/images/default-course.jpg'} 
-                                        alt={course.title} 
-                                        className="card-img" 
+                                    <img
+                                        src={course.image || '/images/default-course.jpg'}
+                                        alt={course.title}
+                                        className="card-img"
                                         onError={() => handleImageError(course.id)}
                                     />
                                 ) : (
@@ -211,7 +211,7 @@ export default function Courses() {
                                 <span className="category-tag">{course.category}</span>
                                 <h3>{course.title}</h3>
                                 <p>{course.desc}</p>
-                                
+
                                 <button className="btn-enroll" onClick={() => openModal(course)}>
                                     Enroll Now
                                 </button>
@@ -238,7 +238,7 @@ export default function Courses() {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <button className="btn-close" onClick={closeModal}><IoCloseOutline /></button>
-                        
+
                         <h2>Course Enrollment</h2>
                         <div className="selected-course-badge">
                             <strong>Selected Course:</strong> {selectedCourse?.title}
@@ -253,7 +253,7 @@ export default function Courses() {
                                 <label>Phone / WhatsApp Number</label>
                                 <input type="tel" placeholder="Enter your number" value={enrollPhone} onChange={e => setEnrollPhone(e.target.value)} required />
                             </div>
-                            
+
                             <button type="submit" className="btn-submit" disabled={isSubmitting}>
                                 {isSubmitting ? 'Processing...' : 'Submit & Continue to WhatsApp'}
                             </button>
