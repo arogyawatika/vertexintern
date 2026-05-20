@@ -251,7 +251,7 @@ export default function Header() {
                     .header-actions { gap: 1rem; }
                     .btn-brochure { padding: 8px 15px; font-size: 0.85rem; }
                     .mobile-menu a { font-size: 1rem; font-weight: 600; } 
-                }
+                } 
             `}</style>
         </header>
     );
