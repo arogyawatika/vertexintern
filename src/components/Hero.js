@@ -6,7 +6,7 @@ export default function Hero() {
         <section className="hero-section">
             <div className="container">
                 <div className="hero-content">
-                    <h1>Get <span className="highlight">2500+</span> Best Online Courses From <span className="highlight">Vertex Intern</span></h1>
+                    <h1>Get <span className="highlight">2500+</span> Best Online Courses From <span className="highlight">Elevate Intern</span></h1>
                     <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit.</p>
 
                     {/* If using Next.js 12 or older, change this to: <Link href="#" passHref><a className="btn-hero">Find courses →</a></Link> */}
@@ -27,7 +27,7 @@ export default function Hero() {
                     min-height: 85vh; /* Forces a taller hero section on desktop */
                     display: flex;
                     align-items: center;
-                    font-family: sans-serif; 
+                    font-family: 'Ubuntu', sans-serif; /* Updated to brand font */
                     overflow: hidden; 
                 }
                 
