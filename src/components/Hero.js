@@ -175,12 +175,10 @@ export default function Hero() {
                     transition: all 0s ease; 
                     border: none;
                     cursor: pointer;
-                    box-shadow: 0 8px 15px rgba(114, 186, 169, 0.25); 
                 }
 
                 a.btn-hero:hover { 
                     background-color: #934761 !important; /* Reverses to primary plum color on hover */
-                    box-shadow: 0 8px 20px rgba(147, 71, 97, 0.3);
                 }
 
                 .hero-image { 

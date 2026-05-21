@@ -184,7 +184,7 @@ export default function Header() {
                     border-radius: 6px;
                     font-weight: 700;
                     font-size: 0.95rem;
-                    transition: all 0.3s ease;
+                    transition: all 0s ease;
                     border: 2px solid transparent;
                     white-space: nowrap;
                 }

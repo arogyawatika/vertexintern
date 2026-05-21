@@ -31,9 +31,7 @@ export default function Footer() {
                                 <img src="/logo.png" alt="Elevate Interns Logo" className="footer-logo" />
                             </a>
                         </Link>
-                        <p className="desc">
-                            Elevate Interns is dedicated to bridging the gap between academia and industry with premium training and recognized certifications.
-                        </p>
+                    
                         <ul className="contact-info">
                             <li><strong>Add:</strong> Brij Mohan Thakur Lane, Barari Road, Bhagalpur, Bihar, 812003</li>
                             <li><strong>Call:</strong> +91 7903547970</li>
@@ -146,6 +144,7 @@ export default function Footer() {
                     line-height: 1.6;
                     margin-bottom: 1.5rem;
                     font-size: 0.95rem;
+                    color: #f8fafc;
                 }
                 .contact-info {
                     list-style: none;

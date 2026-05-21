@@ -24,7 +24,7 @@ export default function AdminDashboard() {
     const [courseName, setCourseName] = useState('');
     const [issueDate, setIssueDate] = useState('');
     const [noticeTitle, setNoticeTitle] = useState('');
-    const [noticeFile, setNoticeFile] = useState(null);
+    const [noticeContent, setNoticeContent] = useState('');
 
     useEffect(() => {
         const savedKey = sessionStorage.getItem('adminKey');
@@ -126,33 +126,41 @@ export default function AdminDashboard() {
 
     const submitNotice = async (e) => {
         e.preventDefault();
-        setStatusMsg('Uploading to Drive & Saving...');
+        setStatusMsg('Saving Notice...');
 
-        if (editingId) {
-            const updatedNoticeData = {
-                title: noticeTitle,
-                fileUrl: notices.find(n => n.id === editingId).notice_data.fileUrl,
-                fileName: notices.find(n => n.id === editingId).notice_data.fileName
-            };
-            
-            await fetch('/api/admin-action', {
+        // Automatically generate a URL-friendly unique slug from the title
+        const baseSlug = noticeTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        const uniqueSlug = editingId ? notices.find(n => n.id === editingId).notice_data.slug : `${baseSlug}-${Date.now().toString(36)}`;
+
+        const noticeData = {
+            title: noticeTitle,
+            content: noticeContent,
+            slug: uniqueSlug
+        };
+
+        try {
+            // If editing, use the generic admin-action. If new, use the new add-notice API.
+            const endpoint = editingId ? '/api/admin-action' : '/api/add-notice';
+            const payload = editingId 
+                ? { masterKey, action: 'update', table: 'notices', id: editingId, payload: noticeData }
+                : { masterKey, noticeData };
+
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ masterKey, action: 'update', table: 'notices', id: editingId, payload: updatedNoticeData })
+                body: JSON.stringify(payload)
             });
-            closeForm();
-            fetchData('notices', masterKey);
-        } else {
-            if (!noticeFile) return setStatusMsg('File required for new notice.');
-            
-            const formData = new FormData();
-            formData.append('masterKey', masterKey);
-            formData.append('title', noticeTitle);
-            formData.append('file', noticeFile);
 
-            await fetch('/api/publish', { method: 'POST', body: formData });
-            closeForm();
-            fetchData('notices', masterKey);
+            if (res.ok) {
+                setStatusMsg('');
+                closeForm();
+                fetchData('notices', masterKey);
+            } else {
+                const err = await res.json();
+                setStatusMsg(`Error: ${err.message}`);
+            }
+        } catch (err) {
+            setStatusMsg('Network Error.');
         }
     };
 
@@ -167,6 +175,7 @@ export default function AdminDashboard() {
             setIssueDate(item.cert_data.issueDate);
         } else {
             setNoticeTitle(item.notice_data.title);
+            setNoticeContent(item.notice_data.content || '');
         }
         setShowForm(true);
     };
@@ -174,7 +183,7 @@ export default function AdminDashboard() {
     const openNewForm = () => {
         setEditingId(null);
         setCertNumber(''); setStudentName(''); setCourseName(''); setIssueDate('');
-        setNoticeTitle(''); setNoticeFile(null);
+        setNoticeTitle(''); setNoticeContent('');
         setShowForm(true);
     };
 
@@ -260,13 +269,17 @@ export default function AdminDashboard() {
                                             <label>Notice Title</label>
                                             <input type="text" placeholder="Enter title" value={noticeTitle} onChange={e => setNoticeTitle(e.target.value)} required />
                                         </div>
-                                        {!editingId && (
-                                            <div className="input-group file-input-group">
-                                                <label>Attachment (PDF/Image)</label>
-                                                <input type="file" onChange={e => setNoticeFile(e.target.files[0])} required />
-                                            </div>
-                                        )}
-                                        {editingId && <p className="help-text">File editing is disabled. Delete and recreate to change attachment.</p>}
+                                        <div className="input-group">
+                                            <label>Notice Content</label>
+                                            <textarea 
+                                                rows="6" 
+                                                placeholder="Write the full notice details here..." 
+                                                value={noticeContent} 
+                                                onChange={e => setNoticeContent(e.target.value)} 
+                                                required 
+                                                style={{padding: '14px', border: '1px solid #cbd5e1', borderRadius: '6px', fontFamily: 'inherit', resize: 'vertical'}}
+                                            ></textarea>
+                                        </div>
                                         <div className="form-actions">
                                             <button type="button" onClick={closeForm} className="btn-secondary">Cancel</button>
                                             <button type="submit" className="btn-primary">Save Notice</button>
@@ -287,8 +300,9 @@ export default function AdminDashboard() {
                                                 {activeTab === 'certificates' && (
                                                     <><th>Cert Number</th><th>Student</th><th>Course</th><th>Issue Date</th><th className="th-action">Actions</th></>
                                                 )}
+                                                {/* FIXED: Replaced the map loop with the correct TH tags */}
                                                 {activeTab === 'notices' && (
-                                                    <><th>Title</th><th>Attachment Name</th><th>Date Added</th><th className="th-action">Actions</th></>
+                                                    <><th>Title</th><th>Content Snippet</th><th>Date Added</th><th className="th-action">Actions</th></>
                                                 )}
                                                 {/* ADD THIS LINE FOR ENROLLMENTS HEADER */}
                                                 {activeTab === 'enrollments' && (
@@ -297,6 +311,7 @@ export default function AdminDashboard() {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {/* 1. CERTIFICATES */}
                                             {activeTab === 'certificates' && certificates.map(cert => (
                                                 <tr key={cert.id}>
                                                     <td data-label="Cert Number"><strong>{cert.cert_data.certificateNumber}</strong></td>
@@ -309,10 +324,14 @@ export default function AdminDashboard() {
                                                     </td>
                                                 </tr>
                                             ))}
+
+                                            {/* 2. NOTICES */}
                                             {activeTab === 'notices' && notices.map(notice => (
                                                 <tr key={notice.id}>
                                                     <td data-label="Title"><strong>{notice.notice_data.title}</strong></td>
-                                                    <td data-label="Attachment">{notice.notice_data.fileName}</td>
+                                                    <td data-label="Content Snippet">
+                                                        {notice.notice_data.content ? notice.notice_data.content.substring(0, 45) + '...' : 'No content'}
+                                                    </td>
                                                     <td data-label="Date Added">{new Date(notice.created_at).toLocaleDateString()}</td>
                                                     <td data-label="Actions" className="action-cells">
                                                         <button className="btn-icon edit" onClick={() => openEditForm(notice, 'notice')}><IoPencilOutline /></button>
@@ -320,7 +339,8 @@ export default function AdminDashboard() {
                                                     </td>
                                                 </tr>
                                             ))}
-                                            {/* ADD THIS BLOCK FOR ENROLLMENTS DATA */}
+
+                                            {/* 3. ENROLLMENTS */}
                                             {activeTab === 'enrollments' && enrollments.map(enroll => (
                                                 <tr key={enroll.id}>
                                                     <td data-label="Course"><strong>{enroll.enroll_data.courseTitle}</strong></td>

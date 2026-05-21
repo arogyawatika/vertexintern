@@ -39,8 +39,8 @@ export default function ContactBanner() {
                 }
 
                 .banner-inner {
-                    /* Teal gradient matching your screenshot */
-                    background: linear-gradient(135deg, #1bba93 0%, #23c197 50%, #20b086 100%);
+                    /* Updated Gradient: Plum to Rose */
+                    background: linear-gradient(135deg, #934761 0%, #AD5C71 100%);
                     
                     /* If you want to use your Brand Blue instead, uncomment the line below and delete the teal one above: */
                     /* background: linear-gradient(135deg, #145da0 0%, #0b3964 100%); */
@@ -52,7 +52,7 @@ export default function ContactBanner() {
                     justify-content: center;
                     position: relative;
                     overflow: hidden;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                    box-shadow: 0 10px 30px rgba(147, 71, 97, 0.2);
                 }
 
                 /* Optional: Placeholder for topographic background image */
@@ -85,9 +85,9 @@ export default function ContactBanner() {
                 }
 
                 .label {
-                    color: #ffffff;
+                    color: #D5E7B5; /* Brand Light Green */
                     font-size: 1.1rem;
-                    font-weight: 400;
+                    font-weight: 500;
                     margin-bottom: 0.25rem;
                 }
 
@@ -112,7 +112,7 @@ export default function ContactBanner() {
 
                 .or-circle {
                     background-color: #ffffff;
-                    color: #1bba93; /* Matches the teal background */
+                    color: #934761; /* Brand Plum */
                     width: 65px;
                     height: 65px;
                     border-radius: 50%;
@@ -122,7 +122,7 @@ export default function ContactBanner() {
                     font-size: 1.25rem;
                     font-weight: 700;
                     /* This creates the translucent outer ring seen in your screenshot */
-                    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.3); 
+                    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2); 
                 }
 
                 /* --- Tablet Responsive --- */
@@ -159,7 +159,7 @@ export default function ContactBanner() {
                         width: 55px;
                         height: 55px;
                         font-size: 1.1rem;
-                        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.3);
+                        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
                     }
                 }
             `}</style>
