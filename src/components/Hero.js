@@ -59,7 +59,7 @@ export default function Hero() {
             <div className="container">
                 <div className="hero-content">
                     <h1>Get <span className="highlight">25+</span> Best Online Courses From <span className="highlight">Elevate Intern</span></h1>
-                    <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit.</p>
+                    <p>Complete Internship with gaining real industry skills and practical experience.</p>
 
                     <Link href="/courses" legacyBehavior passHref>
                         <a className="btn-hero">Find courses &rarr;</a>
