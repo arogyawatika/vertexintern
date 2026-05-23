@@ -152,7 +152,7 @@ export default function Contact() {
             {/* --- MAP SECTION (Optional, completes the UI look) --- */}
             <div className="map-section">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14220.316728781814!2d85.0814157436331!3d25.630349133882103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed577564a2366b%3A0x8c818cf08ab0a29!2sRajeev%20Nagar%2C%20Patna%2C%20Bihar!5e1!3m2!1sen!2sin!4v1779130585357!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2246.3270448608787!2d87.02070316877499!3d25.26707450734436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f037bdefdf8713%3A0x9fe3e3a2e2f65dca!2sS.K%20D.J.%20Electronics!5e1!3m2!1sen!2sin!4v1779527016935!5m2!1sen!2sin"
                     width="100%" 
                     height="400" 
                     style={{ border: 0 }} 

@@ -250,6 +250,54 @@ export default function NoticeBoard() {
                     0% { transform: translateY(0); }
                     100% { transform: translateY(-50%); } 
                 }
+
+                /* --- MOBILE COMPACT DESIGN --- */
+                @media (max-width: 768px) {
+                    .notice-section { 
+                        padding: 2.5rem 1rem; 
+                    }
+                    
+                    .layout-grid {
+                        gap: 2rem;
+                    }
+
+                    .board-wrapper {
+                        border-radius: 8px;
+                    }
+
+                    .board-header {
+                        padding: 1rem 1.2rem;
+                    }
+                    
+                    .board-header h2 {
+                        font-size: 1.2rem;
+                    }
+
+                    .board-body {
+                        height: 300px; /* Shorter on mobile to save space */
+                    }
+
+                    .notice-item {
+                        padding: 1rem 1.2rem;
+                    }
+
+                    .notice-title-link {
+                        font-size: 1rem;
+                    }
+
+                    .notice-date {
+                        font-size: 0.8rem;
+                    }
+
+                    .board-footer {
+                        padding: 1rem 1.2rem;
+                    }
+
+                    .btn-all-notices {
+                        padding: 10px 20px;
+                        font-size: 0.95rem;
+                    }
+                }
             `}</style>
         </section>
     );
