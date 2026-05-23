@@ -55,7 +55,7 @@ export default function Header() {
                     <nav className="desktop-nav">
                         <ul>
                             <li><Link href="/" legacyBehavior passHref><a>Home <span>▾</span></a></Link></li>
-                            <li><Link href="/admin" legacyBehavior passHref><a>Admin <span>▾</span></a></Link></li>
+                            
                             <li><Link href="/verify" legacyBehavior passHref><a>Verify Certificate <span>▾</span></a></Link></li>
                             <li><Link href="/courses" legacyBehavior passHref><a>Courses <span>▾</span></a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a>About <span>▾</span></a></Link></li>
@@ -86,7 +86,7 @@ export default function Header() {
                     <div className="mobile-menu">
                         <ul>
                             <li><Link href="/" legacyBehavior passHref><a onClick={closeMenu}>Home <IoAddOutline /></a></Link></li>
-                            <li><Link href="/admin" legacyBehavior passHref><a onClick={closeMenu}>Admin <IoAddOutline /></a></Link></li>
+                            
                             <li><Link href="/verify" legacyBehavior passHref><a onClick={closeMenu}>Verify Certificate <IoAddOutline /></a></Link></li>
                             <li><Link href="/courses" legacyBehavior passHref><a onClick={closeMenu}>Courses <IoAddOutline /></a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a onClick={closeMenu}>About <IoAddOutline /></a></Link></li>

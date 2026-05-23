@@ -74,7 +74,7 @@ const allCourses = [
 ];
 
 const ITEMS_PER_PAGE = 9;
-const WHATSAPP_NUMBER = "916205782002";
+const WHATSAPP_NUMBER = "917903547970";
 
 export default function Courses() {
     const router = useRouter();

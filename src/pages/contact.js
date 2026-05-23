@@ -11,7 +11,7 @@ import {
 } from 'react-icons/io5';
 
 // IMPORTANT: Put your WhatsApp number here (Include country code, no + or spaces)
-const WHATSAPP_NUMBER = "916205782002"; 
+const WHATSAPP_NUMBER = "917903547970"; 
 
 export default function Contact() {
     const [name, setName] = useState('');

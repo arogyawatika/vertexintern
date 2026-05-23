@@ -9,7 +9,7 @@ export default function ContactBanner() {
                     {/* Left Side: Email */}
                     <div className="contact-block left-block">
                         <span className="label">Get In Touch:</span>
-                        <a href="mailto:info@elevateinterns.in" className="value">info@elevateinterns.in</a>
+                        <a href="mailto:elevateinterns9@gmail.com" className="value">elevateinterns9@gmail.com</a>
                     </div>
 
                     {/* Center: OR Circle */}
