@@ -58,7 +58,7 @@ export default function Hero() {
 
             <div className="container">
                 <div className="hero-content">
-                    <h1>Get <span className="highlight">2500+</span> Best Online Courses From <span className="highlight">Elevate Intern</span></h1>
+                    <h1>Get <span className="highlight">25+</span> Best Online Courses From <span className="highlight">Elevate Intern</span></h1>
                     <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit.</p>
 
                     <Link href="/courses" legacyBehavior passHref>
