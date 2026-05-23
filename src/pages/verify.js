@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { supabase } from '../lib/supabase';
 import { IoSearchOutline, IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 
 export default function Verify() {
+    const router = useRouter();
     const [searchNumber, setSearchNumber] = useState('');
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false);
 
-    const handleVerify = async (e) => {
-        e.preventDefault();
-        if (!searchNumber.trim()) return;
+    // Automatically trigger verification if accessed via QR Code URL (/verify?id=...)
+    useEffect(() => {
+        if (router.isReady && router.query.id) {
+            const idFromUrl = router.query.id;
+            setSearchNumber(idFromUrl);
+            performSearch(idFromUrl);
+        }
+    }, [router.isReady, router.query.id]);
+
+    // Extracted search logic to be reused by both form submit and URL params
+    const performSearch = async (certId) => {
+        if (!certId.trim()) return;
         
         setLoading(true);
         setSearched(true);
@@ -21,7 +32,7 @@ export default function Verify() {
         const { data, error } = await supabase
             .from('certificates')
             .select('cert_data, created_at')
-            .eq('cert_data->>certificateNumber', searchNumber.trim().toUpperCase())
+            .eq('cert_data->>certificateNumber', certId.trim().toUpperCase())
             .single();
 
         if (data) {
@@ -31,6 +42,11 @@ export default function Verify() {
         }
         
         setLoading(false);
+    };
+
+    const handleVerify = (e) => {
+        e.preventDefault();
+        performSearch(searchNumber);
     };
 
     return (
@@ -43,7 +59,7 @@ export default function Verify() {
             <div className="verify-container">
                 <div className="verify-header">
                     <h1>Certificate <span className="highlight">Verification</span></h1>
-                    <p>Enter the certificate number to verify its authenticity and details.</p>
+                    <p>Enter the certificate number or scan the QR code to verify authenticity and details.</p>
                 </div>
 
                 <form className="search-bar" onSubmit={handleVerify}>
@@ -86,6 +102,25 @@ export default function Verify() {
                                         <span className="label">Course/Program:</span>
                                         <span className="value">{result.courseName}</span>
                                     </div>
+                                    {/* --- NEWLY ADDED DETAILS --- */}
+                                    {result.collegeName && (
+                                        <div className="detail-row">
+                                            <span className="label">College Name:</span>
+                                            <span className="value">{result.collegeName}</span>
+                                        </div>
+                                    )}
+                                    {result.universityName && (
+                                        <div className="detail-row">
+                                            <span className="label">University Name:</span>
+                                            <span className="value">{result.universityName}</span>
+                                        </div>
+                                    )}
+                                    {result.stateName && (
+                                        <div className="detail-row">
+                                            <span className="label">State:</span>
+                                            <span className="value">{result.stateName}</span>
+                                        </div>
+                                    )}
                                     <div className="detail-row">
                                         <span className="label">Issue Date:</span>
                                         <span className="value">{new Date(result.issueDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { IoTrashOutline, IoPencilOutline, IoAddCircleOutline, IoReloadOutline, IoLogOutOutline } from 'react-icons/io5';
+import { IoTrashOutline, IoPencilOutline, IoAddCircleOutline, IoReloadOutline, IoLogOutOutline, IoQrCodeOutline } from 'react-icons/io5';
 
 export default function AdminDashboard() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,6 +23,10 @@ export default function AdminDashboard() {
     const [studentName, setStudentName] = useState('');
     const [courseName, setCourseName] = useState('');
     const [issueDate, setIssueDate] = useState('');
+    const [collegeName, setCollegeName] = useState(''); // <-- NEW
+    const [universityName, setUniversityName] = useState(''); // <-- NEW
+    const [stateName, setStateName] = useState(''); // <-- NEW
+    
     const [noticeTitle, setNoticeTitle] = useState('');
     const [noticeContent, setNoticeContent] = useState('');
 
@@ -49,6 +53,29 @@ export default function AdminDashboard() {
     const handleLogout = () => {
         sessionStorage.removeItem('adminKey');
         window.location.reload();
+    };
+
+    const downloadQR = async (cert) => {
+        try {
+            // Generates the verification URL (e.g., https://yourdomain.com/verify?id=VTX-2026-001)
+            const verifyUrl = `${window.location.origin}/verify?id=${cert.cert_data.certificateNumber}`;
+            // Uses a free, reliable API to generate the QR Code PNG
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(verifyUrl)}`;
+            
+            const response = await fetch(qrApiUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${cert.cert_data.certificateNumber}_QRCode.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            alert('Failed to download QR code. Please check your connection.');
+        }
     };
 
     // --- CRUD OPERATIONS ---
@@ -92,11 +119,15 @@ export default function AdminDashboard() {
         e.preventDefault();
         setStatusMsg('Saving Certificate...');
 
+        // Now includes the 3 new fields
         const certData = {
             certificateNumber: certNumber.trim().toUpperCase(),
             studentName: studentName.trim(),
             courseName: courseName.trim(),
-            issueDate: issueDate
+            issueDate: issueDate,
+            collegeName: collegeName.trim(),
+            universityName: universityName.trim(),
+            stateName: stateName.trim()
         };
 
         try {
@@ -173,6 +204,9 @@ export default function AdminDashboard() {
             setStudentName(item.cert_data.studentName);
             setCourseName(item.cert_data.courseName);
             setIssueDate(item.cert_data.issueDate);
+            setCollegeName(item.cert_data.collegeName || '');
+            setUniversityName(item.cert_data.universityName || '');
+            setStateName(item.cert_data.stateName || '');
         } else {
             setNoticeTitle(item.notice_data.title);
             setNoticeContent(item.notice_data.content || '');
@@ -183,6 +217,7 @@ export default function AdminDashboard() {
     const openNewForm = () => {
         setEditingId(null);
         setCertNumber(''); setStudentName(''); setCourseName(''); setIssueDate('');
+        setCollegeName(''); setUniversityName(''); setStateName('');
         setNoticeTitle(''); setNoticeContent('');
         setShowForm(true);
     };
@@ -255,6 +290,18 @@ export default function AdminDashboard() {
                                             <input type="text" placeholder="Course Name" value={courseName} onChange={e => setCourseName(e.target.value)} required />
                                         </div>
                                         <div className="input-group">
+                                            <label>College Name</label>
+                                            <input type="text" placeholder="e.g., MIT, BIT Sindri" value={collegeName} onChange={e => setCollegeName(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>University Name</label>
+                                            <input type="text" placeholder="e.g., AKU, Aryabhatta" value={universityName} onChange={e => setUniversityName(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>State</label>
+                                            <input type="text" placeholder="e.g., Bihar" value={stateName} onChange={e => setStateName(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
                                             <label>Issue Date</label>
                                             <input type="date" value={issueDate} onChange={e => setIssueDate(e.target.value)} required />
                                         </div>
@@ -319,8 +366,12 @@ export default function AdminDashboard() {
                                                     <td data-label="Course">{cert.cert_data.courseName}</td>
                                                     <td data-label="Issue Date">{cert.cert_data.issueDate}</td>
                                                     <td data-label="Actions" className="action-cells">
-                                                        <button className="btn-icon edit" onClick={() => openEditForm(cert, 'cert')}><IoPencilOutline /></button>
-                                                        <button className="btn-icon delete" onClick={() => handleDelete('certificates', cert.id)}><IoTrashOutline /></button>
+                                                        {/* NEW QR CODE BUTTON */}
+                                                        <button className="btn-icon edit" style={{color: '#1bba93'}} onClick={() => downloadQR(cert)} title="Download QR">
+                                                            <IoQrCodeOutline />
+                                                        </button>
+                                                        <button className="btn-icon edit" onClick={() => openEditForm(cert, 'cert')} title="Edit"><IoPencilOutline /></button>
+                                                        <button className="btn-icon delete" onClick={() => handleDelete('certificates', cert.id)} title="Delete"><IoTrashOutline /></button>
                                                     </td>
                                                 </tr>
                                             ))}
