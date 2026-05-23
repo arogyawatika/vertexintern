@@ -44,6 +44,11 @@ export default function AboutHero() {
                                 <img src="/images/nip.png" alt="AICTE Compliant" className="logo-img" />
                                 <div className="logo-label">National Internship Portal</div>
                             </div>
+                            {/* AICTE */}
+                            <div className="logo-card">
+                                <img src="/images/aicte.png" alt="AICTE Compliant" className="logo-img" />
+                                <div className="logo-label">All India Council for Technical Education</div>
+                            </div>
 
                             {/* ISO Logo Box */}
                             <div className="logo-card">

@@ -88,6 +88,9 @@ export default function Courses() {
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [enrollName, setEnrollName] = useState('');
     const [enrollPhone, setEnrollPhone] = useState('');
+    const [enrollCollege, setEnrollCollege] = useState('');     // <-- ADDED
+    const [enrollUniversity, setEnrollUniversity] = useState(''); // <-- ADDED
+    const [enrollState, setEnrollState] = useState('');         // <-- ADDED
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
@@ -124,6 +127,9 @@ export default function Courses() {
         setIsModalOpen(false);
         setEnrollName('');
         setEnrollPhone('');
+        setEnrollCollege('');     // <-- ADDED
+        setEnrollUniversity('');  // <-- ADDED
+        setEnrollState('');       // <-- ADDED
     };
 
     const handleEnrollSubmit = async (e) => {
@@ -137,11 +143,15 @@ export default function Courses() {
                 body: JSON.stringify({
                     courseTitle: selectedCourse.title,
                     name: enrollName,
-                    phone: enrollPhone
+                    phone: enrollPhone,
+                    college: enrollCollege,       // <-- ADDED
+                    university: enrollUniversity, // <-- ADDED
+                    state: enrollState            // <-- ADDED
                 })
             });
 
-            const text = `Hello Elevate Internship, I am interested in enrolling for the course: *${selectedCourse.title}*. My name is ${enrollName} and my contact number is ${enrollPhone}.`;
+            // Added new details to the WhatsApp message
+            const text = `Hello Elevate Interns, I am interested in enrolling for the course: *${selectedCourse.title}*.\n\n*Name:* ${enrollName}\n*Phone:* ${enrollPhone}\n*College:* ${enrollCollege}\n*University:* ${enrollUniversity}\n*State:* ${enrollState}`;
             const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 
             window.open(waUrl, '_blank');
@@ -253,6 +263,21 @@ export default function Courses() {
                                 <label>Phone / WhatsApp Number</label>
                                 <input type="tel" placeholder="Enter your number" value={enrollPhone} onChange={e => setEnrollPhone(e.target.value)} required />
                             </div>
+                            
+                            {/* --- NEW FIELDS ADDED --- */}
+                            <div className="input-group">
+                                <label>College Name</label>
+                                <input type="text" placeholder="e.g., MIT, BIT Sindri" value={enrollCollege} onChange={e => setEnrollCollege(e.target.value)} required />
+                            </div>
+                            <div className="input-group">
+                                <label>University Name</label>
+                                <input type="text" placeholder="e.g., AKU, Aryabhatta" value={enrollUniversity} onChange={e => setEnrollUniversity(e.target.value)} required />
+                            </div>
+                            <div className="input-group">
+                                <label>State</label>
+                                <input type="text" placeholder="e.g., Bihar" value={enrollState} onChange={e => setEnrollState(e.target.value)} required />
+                            </div>
+                            {/* ------------------------ */}
 
                             <button type="submit" className="btn-submit" disabled={isSubmitting}>
                                 {isSubmitting ? 'Processing...' : 'Submit & Continue to WhatsApp'}
