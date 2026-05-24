@@ -5,7 +5,8 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const { courseTitle, name, phone } = req.body;
+    // --- UPDATED: Extract the new fields from req.body ---
+    const { courseTitle, name, phone, college, university, state } = req.body;
 
     if (!name || !phone || !courseTitle) {
         return res.status(400).json({ message: 'Missing required fields' });
@@ -18,10 +19,14 @@ export default async function handler(req, res) {
     );
 
     try {
+        // --- UPDATED: Add the new fields to the payload saved to the database ---
         const enrollData = {
             courseTitle: courseTitle,
             studentName: name,
             phone: phone,
+            college: college || '-',       // Added
+            university: university || '-', // Added
+            state: state || '-',           // Added
             status: 'Pending Contact' // Default status for the admin dashboard
         };
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { IoTrashOutline, IoPencilOutline, IoAddCircleOutline, IoReloadOutline, IoLogOutOutline, IoQrCodeOutline } from 'react-icons/io5';
 
 export default function AdminDashboard() {
+    const router = useRouter(); // <-- ADD THIS LINE
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [masterKey, setMasterKey] = useState('');
     const [activeTab, setActiveTab] = useState('certificates'); 
@@ -17,6 +19,7 @@ export default function AdminDashboard() {
     const [showForm, setShowForm] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [statusMsg, setStatusMsg] = useState('');
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, message: '', onConfirm: null }); // <-- ADD THIS LINE
 
     // Form Inputs
     const [certNumber, setCertNumber] = useState('');
@@ -29,6 +32,17 @@ export default function AdminDashboard() {
     
     const [noticeTitle, setNoticeTitle] = useState('');
     const [noticeContent, setNoticeContent] = useState('');
+
+    // <-- ADD THIS ENTIRE useEffect BLOCK -->
+    useEffect(() => {
+        if (router.isReady && router.query.tab) {
+            const validTabs = ['certificates', 'notices', 'enrollments'];
+            if (validTabs.includes(router.query.tab)) {
+                setActiveTab(router.query.tab);
+            }
+        }
+    }, [router.isReady, router.query.tab]);
+    // <------------------------------------->
 
     useEffect(() => {
         const savedKey = sessionStorage.getItem('adminKey');
@@ -100,19 +114,26 @@ export default function AdminDashboard() {
         setLoadingData(false);
     };
 
-    const handleDelete = async (table, id) => {
-        if (!confirm('Are you sure you want to delete this permanently?')) return;
-        
-        try {
-            const res = await fetch('/api/admin-action', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ masterKey, action: 'delete', table, id })
-            });
-            if (res.ok) fetchData(table, masterKey);
-        } catch (err) {
-            alert('Failed to delete item.');
-        }
+    const handleDelete = (table, id) => {
+        // Trigger the custom premium confirmation modal
+        setConfirmDialog({
+            isOpen: true,
+            message: 'Are you sure you want to delete this record permanently? This action cannot be undone.',
+            onConfirm: async () => {
+                setConfirmDialog({ isOpen: false, message: '', onConfirm: null }); // Close modal
+                
+                try {
+                    const res = await fetch('/api/admin-action', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ masterKey, action: 'delete', table, id })
+                    });
+                    if (res.ok) fetchData(table, masterKey);
+                } catch (err) {
+                    setStatusMsg('Failed to delete item.');
+                }
+            }
+        });
     };
 
     const submitCertificate = async (e) => {
@@ -197,6 +218,14 @@ export default function AdminDashboard() {
 
     // --- UI HELPERS ---
 
+    // <-- ADD THIS FUNCTION -->
+    const handleTabChange = (tabName) => {
+        setActiveTab(tabName);
+        closeForm();
+        router.push({ pathname: router.pathname, query: { tab: tabName } }, undefined, { shallow: true });
+    };
+    // <----------------------->
+
     const openEditForm = (item, type) => {
         setEditingId(item.id);
         if (type === 'cert') {
@@ -251,10 +280,9 @@ export default function AdminDashboard() {
                             <button className="logout-btn mobile-only" onClick={handleLogout}><IoLogOutOutline /> Logout</button>
                         </div>
                         <nav className="nav-links">
-                            <button className={activeTab === 'certificates' ? 'active' : ''} onClick={() => { setActiveTab('certificates'); closeForm(); }}>Manage Certificates</button>
-                            <button className={activeTab === 'notices' ? 'active' : ''} onClick={() => { setActiveTab('notices'); closeForm(); }}>Manage Notices</button>
-                            {/* ADD THIS BUTTON */}
-                            <button className={activeTab === 'enrollments' ? 'active' : ''} onClick={() => { setActiveTab('enrollments'); closeForm(); }}>Student Enrollments</button>
+                            <button className={activeTab === 'certificates' ? 'active' : ''} onClick={() => handleTabChange('certificates')}>Manage Certificates</button>
+                            <button className={activeTab === 'notices' ? 'active' : ''} onClick={() => handleTabChange('notices')}>Manage Notices</button>
+                            <button className={activeTab === 'enrollments' ? 'active' : ''} onClick={() => handleTabChange('enrollments')}>Student Enrollments</button>
                         </nav>
                         <button className="logout-btn desktop-only" onClick={handleLogout}><IoLogOutOutline /> Log Out</button>
                     </aside>
@@ -269,6 +297,23 @@ export default function AdminDashboard() {
                                 <button className="btn-primary add-btn" onClick={openNewForm}><IoAddCircleOutline /> Add New</button>
                             </div>
                         </div>
+
+                        {/* PREMIUM CONFIRMATION MODAL */}
+                        {confirmDialog.isOpen && (
+                            <div className="custom-modal-overlay">
+                                <div className="confirm-modal pop-in">
+                                    <div className="confirm-icon-wrapper">
+                                        <IoTrashOutline className="warning-icon" />
+                                    </div>
+                                    <h3>Confirm Deletion</h3>
+                                    <p>{confirmDialog.message}</p>
+                                    <div className="confirm-actions">
+                                        <button className="btn-cancel" onClick={() => setConfirmDialog({ isOpen: false, message: '', onConfirm: null })}>Cancel</button>
+                                        <button className="btn-danger" onClick={confirmDialog.onConfirm}>Yes, Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {/* FORM MODAL AREA */}
                         {showForm && (
@@ -352,8 +397,18 @@ export default function AdminDashboard() {
                                                     <><th>Title</th><th>Content Snippet</th><th>Date Added</th><th className="th-action">Actions</th></>
                                                 )}
                                                 {/* ADD THIS LINE FOR ENROLLMENTS HEADER */}
+                                                {/* ADD THIS LINE FOR ENROLLMENTS HEADER */}
                                                 {activeTab === 'enrollments' && (
-                                                    <><th>Course</th><th>Student Name</th><th>Phone Number</th><th>Date Submitted</th><th className="th-action">Actions</th></>
+                                                    <>
+                                                        <th>Course</th>
+                                                        <th>Student Name</th>
+                                                        <th>Phone Number</th>
+                                                        <th>College</th>
+                                                        <th>University</th>
+                                                        <th>State</th>
+                                                        <th>Date Submitted</th>
+                                                        <th className="th-action">Actions</th>
+                                                    </>
                                                 )}
                                             </tr>
                                         </thead>
@@ -401,9 +456,14 @@ export default function AdminDashboard() {
                                                             {enroll.enroll_data.phone}
                                                         </a>
                                                     </td>
+                                                    {/* --- NEWLY FETCHED DATA --- */}
+                                                    <td data-label="College">{enroll.enroll_data.college || '-'}</td>
+                                                    <td data-label="University">{enroll.enroll_data.university || '-'}</td>
+                                                    <td data-label="State">{enroll.enroll_data.state || '-'}</td>
+                                                    {/* -------------------------- */}
                                                     <td data-label="Date Submitted">{new Date(enroll.created_at).toLocaleDateString()}</td>
                                                     <td data-label="Actions" className="action-cells">
-                                                        <button className="btn-icon delete" onClick={() => handleDelete('enrollments', enroll.id)}><IoTrashOutline /></button>
+                                                        <button className="btn-icon delete" onClick={() => handleDelete('enrollments', enroll.id)} title="Delete"><IoTrashOutline /></button>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -561,6 +621,64 @@ export default function AdminDashboard() {
                     }
                     
                     .action-cells { justify-content: flex-end; }
+                }
+                    /* --- PREMIUM CONFIRMATION MODAL --- */
+                .custom-modal-overlay {
+                    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                    background: rgba(15, 23, 42, 0.6);
+                    backdrop-filter: blur(4px);
+                    display: flex; justify-content: center; align-items: center;
+                    z-index: 1000; padding: 1rem;
+                }
+                .confirm-modal {
+                    background: #ffffff;
+                    padding: 2.5rem;
+                    border-radius: 16px;
+                    width: 100%; max-width: 400px;
+                    text-align: center;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                }
+                .pop-in {
+                    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+                @keyframes popIn {
+                    from { opacity: 0; transform: scale(0.8); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                .confirm-icon-wrapper {
+                    width: 70px; height: 70px;
+                    background: #fee2e2; /* Light red */
+                    border-radius: 50%;
+                    display: flex; justify-content: center; align-items: center;
+                    margin: 0 auto 1.5rem auto;
+                }
+                .warning-icon {
+                    font-size: 2rem; color: #ef4444; /* Bright red */
+                }
+                .confirm-modal h3 {
+                    color: #1e293b; font-size: 1.5rem; font-weight: 700; margin: 0 0 0.75rem 0;
+                }
+                .confirm-modal p {
+                    color: #64748b; font-size: 1rem; line-height: 1.5; margin: 0 0 2rem 0;
+                }
+                .confirm-actions {
+                    display: flex; gap: 1rem;
+                }
+                .confirm-actions button {
+                    flex: 1; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 1rem;
+                    cursor: pointer; transition: all 0.2s ease; border: none;
+                }
+                .btn-cancel {
+                    background: #f1f5f9; color: #475569;
+                }
+                .btn-cancel:hover {
+                    background: #e2e8f0; color: #1e293b;
+                }
+                .btn-danger {
+                    background: #ef4444; color: white;
+                }
+                .btn-danger:hover {
+                    background: #dc2626; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
                 }
             `}</style>
         </div>
