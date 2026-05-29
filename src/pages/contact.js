@@ -152,7 +152,7 @@ export default function Contact() {
             {/* --- MAP SECTION (Optional, completes the UI look) --- */}
             <div className="map-section">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23306.163131019!2d86.99171933777644!3d25.261047196773866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f0362d54a62a25%3A0xfc1f94b99cc963f5!2sBarari%2C%20Bihar!5e1!3m2!1sen!2sin!4v1779555699167!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3565.8323213050576!2d87.02346267538408!3d25.2667193776662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDE2JzAwLjIiTiA4N8KwMDEnMzMuNyJF!5e1!3m2!1sen!2sin!4v1780070530338!5m2!1sen!2sin"
                     width="100%" 
                     height="400" 
                     style={{ border: 0 }} 
