@@ -167,6 +167,12 @@ export default function AdminDashboard() {
                 setStatusMsg('');
                 closeForm();
                 fetchData('certificates', masterKey);
+                
+                // --- AUTO-DOWNLOAD QR CODE ON NEW CERTIFICATE CREATION ---
+                if (!editingId) {
+                    downloadQR({ cert_data: certData });
+                }
+                // ---------------------------------------------------------
             } else {
                 const err = await res.json();
                 setStatusMsg(`Error: ${err.message}`);
@@ -245,7 +251,14 @@ export default function AdminDashboard() {
 
     const openNewForm = () => {
         setEditingId(null);
-        setCertNumber(''); setStudentName(''); setCourseName(''); setIssueDate('');
+        
+        // --- AUTO-GENERATE UNIQUE CERTIFICATE NUMBER ---
+        const year = new Date().getFullYear();
+        const uniqueString = Math.random().toString(36).substring(2, 7).toUpperCase();
+        setCertNumber(`ELV-${year}-${uniqueString}`);
+        // -----------------------------------------------
+
+        setStudentName(''); setCourseName(''); setIssueDate('');
         setCollegeName(''); setUniversityName(''); setStateName('');
         setNoticeTitle(''); setNoticeContent('');
         setShowForm(true);
@@ -323,8 +336,14 @@ export default function AdminDashboard() {
                                 {activeTab === 'certificates' ? (
                                     <form onSubmit={submitCertificate} className="grid-form">
                                         <div className="input-group">
-                                            <label>Certificate No.</label>
-                                            <input type="text" placeholder="VTX-2026-001" value={certNumber} onChange={e => setCertNumber(e.target.value)} required />
+                                            <label>Certificate No. (Auto-Generated)</label>
+                                            <input 
+                                                type="text" 
+                                                value={certNumber} 
+                                                readOnly 
+                                                required 
+                                                style={{ backgroundColor: '#f1f5f9', color: '#64748b', cursor: 'not-allowed', border: '1px solid #e2e8f0' }} 
+                                            />
                                         </div>
                                         <div className="input-group">
                                             <label>Student Name</label>
