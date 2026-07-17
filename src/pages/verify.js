@@ -180,7 +180,8 @@ export default function Verify() {
                     background: #ffffff; 
                     padding: 10px; 
                     border-radius: 8px; 
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+                    border: 1px solid #e2e8f0; 
+                    box-shadow: none; 
                 }
                 .search-bar input { 
                     flex: 1; 
@@ -220,7 +221,8 @@ export default function Verify() {
                     background: #ffffff; 
                     padding: 2.5rem; 
                     border-radius: 12px; 
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+                    border: 1px solid #e2e8f0; 
+                    box-shadow: none; 
                     text-align: center;
                 }
                 
