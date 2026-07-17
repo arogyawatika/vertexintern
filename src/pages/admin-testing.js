@@ -304,7 +304,7 @@ export default function AdminDashboard() {
                     <main className="main-content">
                         <div className="header-bar">
                             {/* UPDATE THIS H2 */}
-                            <h2>{activeTab === 'certificates' ? 'Certificate Registry' : activeTab === 'notices' ? 'Notice Board' : 'Student Enrollments'}</h2>
+                            <h2>{activeTab === 'certificates' ? 'Certificate Testing' : activeTab === 'notices' ? 'Notice Board' : 'Student Enrollments'}</h2>
                             <div className="actions">
                                 <button className="btn-icon" onClick={() => fetchData(activeTab, masterKey)} aria-label="Refresh"><IoReloadOutline /></button>
                                 <button className="btn-primary add-btn" onClick={openNewForm}><IoAddCircleOutline /> Add New</button>
