@@ -28,17 +28,30 @@ export default function Verify() {
         setSearched(true);
         setResult(null);
 
-        // Query Supabase JSONB column safely using the public Anon Key
-        const { data, error } = await supabase
+        const cleanId = certId.trim().toUpperCase();
+
+        // 1. Search Live Certificates Table first
+        let { data, error } = await supabase
             .from('certificates')
             .select('cert_data, created_at')
-            .eq('cert_data->>certificateNumber', certId.trim().toUpperCase())
+            .eq('cert_data->>certificateNumber', cleanId)
             .single();
+
+        // 2. If not found in live, fallback to search Test Certificates Table
+        if (!data) {
+            const testResult = await supabase
+                .from('test_certificates')
+                .select('cert_data, created_at')
+                .eq('cert_data->>certificateNumber', cleanId)
+                .single();
+            
+            data = testResult.data;
+        }
 
         if (data) {
             setResult(data.cert_data);
         } else {
-            setResult(false); // False means not found
+            setResult(false); // False means not found in either table
         }
         
         setLoading(false);
