@@ -58,11 +58,11 @@ export default function Hero() {
 
             <div className="container">
                 <div className="hero-content">
-                    <h1>Get <span className="highlight">25+</span> Best Online Courses From <span className="highlight">Elevate Intern</span></h1>
+                    <h1>Get <span className="highlight">25+</span> Best Internship From <span className="highlight">Elevate Intern</span></h1>
                     <p>Complete Internship with gaining real industry skills and practical experience.</p>
 
                     <Link href="/courses" legacyBehavior passHref>
-                        <a className="btn-hero">Find courses &rarr;</a>
+                        <a className="btn-hero">Internship &rarr;</a>
                     </Link>
                 </div>
                 <div className="hero-image">

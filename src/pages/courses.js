@@ -165,7 +165,7 @@ export default function Courses() {
 
     return (
         <div className="courses-wrapper">
-            <Head><title>All Courses & Internships | Elevate</title></Head>
+            <Head><title>Free Internships</title></Head>
 
             {/* --- PREMIUM HEADER (Moved OUTSIDE the container for full width) --- */}
             <div className="premium-page-header">
@@ -177,13 +177,13 @@ export default function Courses() {
                 <div className="shape-arc-left"></div>
 
                 <div className="header-content">
-                    <h1>Courses</h1>
+                    <h1>Free Internship</h1>
                     <ul className="breadcrumb">
                         <li><a href="/" className="crumb-link">Home</a></li>
                         <li className="separator">&gt;</li>
                         <li>Pages</li>
                         <li className="separator">&gt;</li>
-                        <li className="active">Courses</li>
+                        <li className="active">Internship</li>
                     </ul>
                 </div>
             </div>
@@ -249,9 +249,9 @@ export default function Courses() {
                     <div className="modal-content">
                         <button className="btn-close" onClick={closeModal}><IoCloseOutline /></button>
 
-                        <h2>Course Enrollment</h2>
+                        <h2>Internship Details</h2>
                         <div className="selected-course-badge">
-                            <strong>Selected Course:</strong> {selectedCourse?.title}
+                            <strong>Your Internship:</strong> {selectedCourse?.title}
                         </div>
 
                         <form onSubmit={handleEnrollSubmit} className="enroll-form">

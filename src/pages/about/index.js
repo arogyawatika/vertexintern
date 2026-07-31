@@ -23,9 +23,9 @@ export default function About() {
             
             {/* The Alternate Side-by-Side Sections */}
             <AboutMission /> 
-            <AboutWhyChooseUs />
+            {/*<AboutWhyChooseUs />*/}
             <AboutVision />
-            <AboutTestimonials />
+            {/*<AboutTestimonials />*/}
 
             <style jsx>{`
                 .about-wrapper { background-color: #ffffff; font-family: 'Ubuntu', sans-serif; padding-bottom: 4rem; }
