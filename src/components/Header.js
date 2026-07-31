@@ -57,7 +57,7 @@ export default function Header() {
                             <li><Link href="/" legacyBehavior passHref><a>Home <span>▾</span></a></Link></li>
                             
                             <li><Link href="/verify" legacyBehavior passHref><a>Verify Certificate <span>▾</span></a></Link></li>
-                            <li><Link href="/courses" legacyBehavior passHref><a>Courses <span>▾</span></a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a>Internship <span>▾</span></a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a>About <span>▾</span></a></Link></li>
                             <li><Link href="/contact" legacyBehavior passHref><a>Contact <span>▾</span></a></Link></li>
                         </ul>
