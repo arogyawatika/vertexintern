@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { IoTrashOutline, IoPencilOutline, IoAddCircleOutline, IoReloadOutline, IoLogOutOutline, IoQrCodeOutline } from 'react-icons/io5';
+import { IoTrashOutline, IoPencilOutline, IoAddCircleOutline, IoReloadOutline, IoLogOutOutline, IoQrCodeOutline, IoDocumentTextOutline } from 'react-icons/io5';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 export default function AdminDashboard() {
     const router = useRouter(); // <-- ADD THIS LINE
@@ -12,8 +14,12 @@ export default function AdminDashboard() {
     // Data States
     const [certificates, setCertificates] = useState([]);
     const [notices, setNotices] = useState([]);
-    const [enrollments, setEnrollments] = useState([]); // <-- ADD THIS LINE
+    const [enrollments, setEnrollments] = useState([]);
     const [loadingData, setLoadingData] = useState(false);
+    
+    // --- PAGINATION STATE ---
+    const [currentPage, setCurrentPage] = useState(1);
+    const ITEMS_PER_PAGE = 20;
     
     // Modal & Form States
     const [showForm, setShowForm] = useState(false);
@@ -29,19 +35,35 @@ export default function AdminDashboard() {
     const [collegeName, setCollegeName] = useState(''); // <-- NEW
     const [universityName, setUniversityName] = useState(''); // <-- NEW
     const [stateName, setStateName] = useState(''); // <-- NEW
+
+    // --- NEW CERTIFICATE FIELDS ---
+    const [branch, setBranch] = useState('');
+    const [semester, setSemester] = useState('');
+    const [rollNumber, setRollNumber] = useState('');
+    const [trainingType, setTrainingType] = useState('Summer Internship');
+    const [topic, setTopic] = useState('');
+    const [duration, setDuration] = useState('');
+    const [modeOfTraining, setModeOfTraining] = useState('OFFLINE');
+    const [percentage, setPercentage] = useState('');
+    // ------------------------------
     
     const [noticeTitle, setNoticeTitle] = useState('');
     const [noticeContent, setNoticeContent] = useState('');
 
     // <-- ADD THIS ENTIRE useEffect BLOCK -->
     useEffect(() => {
-        if (router.isReady && router.query.tab) {
-            const validTabs = ['certificates', 'notices', 'enrollments'];
-            if (validTabs.includes(router.query.tab)) {
-                setActiveTab(router.query.tab);
+        if (router.isReady) {
+            if (router.query.tab) {
+                const validTabs = ['certificates', 'notices', 'enrollments'];
+                if (validTabs.includes(router.query.tab)) setActiveTab(router.query.tab);
+            }
+            if (router.query.page) {
+                setCurrentPage(Number(router.query.page) || 1);
+            } else {
+                setCurrentPage(1);
             }
         }
-    }, [router.isReady, router.query.tab]);
+    }, [router.isReady, router.query.tab, router.query.page]);
     // <------------------------------------->
 
     useEffect(() => {
@@ -89,6 +111,54 @@ export default function AdminDashboard() {
             window.URL.revokeObjectURL(url);
         } catch (err) {
             alert('Failed to download QR code. Please check your connection.');
+        }
+    };
+
+    const downloadCertificatePDF = async (cert) => {
+        setStatusMsg('Generating High-Resolution PDF...');
+        
+        // FIXED: Now matches the exact ID from your hidden JSX template
+        const element = document.getElementById(`pdf-template-${cert.id}`);
+        
+        if (!element) {
+            console.error("Template not found for ID:", cert.id);
+            alert("Error: Certificate template could not be found.");
+            setStatusMsg('');
+            return;
+        }
+
+        // Show container off-screen for crisp snapshot capture
+        element.style.display = 'block';
+
+        // CRITICAL FIX: Force the browser to wait 150ms to paint the HTML/CSS before capturing. 
+        // Without this, html2canvas might capture a blank white box.
+        await new Promise(resolve => setTimeout(resolve, 150));
+
+        try {
+            const canvas = await html2canvas(element, {
+                scale: 3, // 3x scaling for sharp, vector-like print text
+                useCORS: true,
+                allowTaint: true,
+                logging: false,
+                width: 1123,  // Exact 96 DPI A4 Landscape width
+                height: 794   // Exact 96 DPI A4 Landscape height
+            });
+
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            
+            // Exact A4 Landscape dimensions (297mm x 210mm)
+            const pdf = new jsPDF('landscape', 'mm', 'a4');
+            pdf.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+            
+            pdf.save(`${cert.cert_data.certificateNumber}_Certificate.pdf`);
+            setStatusMsg('');
+        } catch (error) {
+            console.error('PDF Generation Error:', error);
+            alert('Failed to generate PDF. Please try again.');
+            setStatusMsg('');
+        } finally {
+            // Hide the template again so it doesn't mess up your table UI
+            element.style.display = 'none';
         }
     };
 
@@ -140,7 +210,7 @@ export default function AdminDashboard() {
         e.preventDefault();
         setStatusMsg('Saving Certificate...');
 
-        // Now includes the 3 new fields
+        // Now includes all certificate fields
         const certData = {
             certificateNumber: certNumber.trim().toUpperCase(),
             studentName: studentName.trim(),
@@ -148,7 +218,15 @@ export default function AdminDashboard() {
             issueDate: issueDate,
             collegeName: collegeName.trim(),
             universityName: universityName.trim(),
-            stateName: stateName.trim()
+            stateName: stateName.trim(),
+            branch: branch.trim(),
+            semester: semester.trim(),
+            rollNumber: rollNumber.trim(),
+            trainingType: trainingType,
+            topic: topic.trim(),
+            duration: duration.trim(),
+            modeOfTraining: modeOfTraining,
+            percentage: percentage.trim()
         };
 
         try {
@@ -168,10 +246,7 @@ export default function AdminDashboard() {
                 closeForm();
                 fetchData('certificates', masterKey);
                 
-                // --- AUTO-DOWNLOAD QR CODE ON NEW CERTIFICATE CREATION ---
-                if (!editingId) {
-                    downloadQR({ cert_data: certData });
-                }
+                
                 // ---------------------------------------------------------
             } else {
                 const err = await res.json();
@@ -224,13 +299,17 @@ export default function AdminDashboard() {
 
     // --- UI HELPERS ---
 
-    // <-- ADD THIS FUNCTION -->
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+        router.push({ pathname: router.pathname, query: { ...router.query, page: newPage } }, undefined, { shallow: true });
+    };
+
     const handleTabChange = (tabName) => {
         setActiveTab(tabName);
+        setCurrentPage(1); // Reset page on tab change
         closeForm();
-        router.push({ pathname: router.pathname, query: { tab: tabName } }, undefined, { shallow: true });
+        router.push({ pathname: router.pathname, query: { tab: tabName, page: 1 } }, undefined, { shallow: true });
     };
-    // <----------------------->
 
     const openEditForm = (item, type) => {
         setEditingId(item.id);
@@ -242,11 +321,20 @@ export default function AdminDashboard() {
             setCollegeName(item.cert_data.collegeName || '');
             setUniversityName(item.cert_data.universityName || '');
             setStateName(item.cert_data.stateName || '');
+            setBranch(item.cert_data.branch || '');
+            setSemester(item.cert_data.semester || '');
+            setRollNumber(item.cert_data.rollNumber || '');
+            setTrainingType(item.cert_data.trainingType || 'Summer Internship');
+            setTopic(item.cert_data.topic || '');
+            setDuration(item.cert_data.duration || '');
+            setModeOfTraining(item.cert_data.modeOfTraining || 'OFFLINE');
+            setPercentage(item.cert_data.percentage || '');
         } else {
             setNoticeTitle(item.notice_data.title);
             setNoticeContent(item.notice_data.content || '');
         }
         setShowForm(true);
+        router.push({ pathname: router.pathname, query: { ...router.query, action: 'edit', id: item.id } }, undefined, { shallow: true });
     };
 
     const openNewForm = () => {
@@ -260,18 +348,34 @@ export default function AdminDashboard() {
 
         setStudentName(''); setCourseName(''); setIssueDate('');
         setCollegeName(''); setUniversityName(''); setStateName('');
+        setBranch(''); setSemester(''); setRollNumber('');
+        setTrainingType('Summer Internship'); setTopic(''); setDuration('');
+        setModeOfTraining('OFFLINE'); setPercentage('');
         setNoticeTitle(''); setNoticeContent('');
+        
         setShowForm(true);
+        router.push({ pathname: router.pathname, query: { ...router.query, action: 'new' } }, undefined, { shallow: true });
     };
 
     const closeForm = () => {
         setShowForm(false);
         setStatusMsg('');
+        const { action, id, ...restQuery } = router.query;
+        router.push({ pathname: router.pathname, query: restQuery }, undefined, { shallow: true });
     };
+
+    // --- PAGINATION CALCULATION ---
+    const totalPages = Math.ceil(certificates.length / ITEMS_PER_PAGE);
+    const paginatedCertificates = certificates.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+    
 
     return (
         <div className="admin-wrapper">
-            <Head><title>Admin Dashboard | Elevate</title></Head>
+            <Head>
+                <title>Admin Dashboard | Elevate</title>
+                <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,400&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
+                </Head>
             
             {!isLoggedIn ? (
                 <div className="login-box">
@@ -353,6 +457,47 @@ export default function AdminDashboard() {
                                             <label>Course Name</label>
                                             <input type="text" placeholder="Course Name" value={courseName} onChange={e => setCourseName(e.target.value)} required />
                                         </div>
+                                        {/* --- NEW INPUTS FROM TEMPLATE --- */}
+                                        <div className="input-group">
+                                            <label>Branch / Course</label>
+                                            <input type="text" placeholder="e.g., DIPLOMA IN CIVIL ENGINEERING" value={branch} onChange={e => setBranch(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Semester / Year</label>
+                                            <input type="text" placeholder="e.g., 4TH SEMESTER" value={semester} onChange={e => setSemester(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Roll / Reg. No.</label>
+                                            <input type="text" placeholder="e.g., 24902030055" value={rollNumber} onChange={e => setRollNumber(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Training Type</label>
+                                            <select value={trainingType} onChange={e => setTrainingType(e.target.value)} required style={{ padding: '14px', border: '1px solid #cbd5e1', borderRadius: '6px', fontFamily: 'inherit', fontSize: '1rem', outline: 'none' }}>
+                                                <option value="Summer Internship">Summer Internship</option>
+                                                <option value="Industrial Training">Industrial Training</option>
+                                                <option value="Online Course">Online Course</option>
+                                            </select>
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Topic / Software (of)</label>
+                                            <input type="text" placeholder="e.g., AUTOCAD - 2D & 3D DRAFTING" value={topic} onChange={e => setTopic(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Duration & Dates (in)</label>
+                                            <input type="text" placeholder="e.g., 6 WEEK Civil Eng. (05.06.26 TO 16.07.26)" value={duration} onChange={e => setDuration(e.target.value)} required />
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Mode of Training</label>
+                                            <select value={modeOfTraining} onChange={e => setModeOfTraining(e.target.value)} required style={{ padding: '14px', border: '1px solid #cbd5e1', borderRadius: '6px', fontFamily: 'inherit', fontSize: '1rem', outline: 'none' }}>
+                                                <option value="OFFLINE">OFFLINE</option>
+                                                <option value="ONLINE">ONLINE</option>
+                                            </select>
+                                        </div>
+                                        <div className="input-group">
+                                            <label>Percentage Marks Obtained (%)</label>
+                                            <input type="number" placeholder="e.g., 86" value={percentage} onChange={e => setPercentage(e.target.value)} required />
+                                        </div>
+                                        {/* -------------------------------- */}
                                         <div className="input-group">
                                             <label>College Name</label>
                                             <input type="text" placeholder="e.g., MIT, BIT Sindri" value={collegeName} onChange={e => setCollegeName(e.target.value)} required />
@@ -433,21 +578,192 @@ export default function AdminDashboard() {
                                         </thead>
                                         <tbody>
                                             {/* 1. CERTIFICATES */}
-                                            {activeTab === 'certificates' && certificates.map(cert => (
-                                                <tr key={cert.id}>
-                                                    <td data-label="Cert Number"><strong>{cert.cert_data.certificateNumber}</strong></td>
-                                                    <td data-label="Student">{cert.cert_data.studentName}</td>
-                                                    <td data-label="Course">{cert.cert_data.courseName}</td>
-                                                    <td data-label="Issue Date">{cert.cert_data.issueDate}</td>
-                                                    <td data-label="Actions" className="action-cells">
-                                                        {/* NEW QR CODE BUTTON */}
-                                                        <button className="btn-icon edit" style={{color: '#1bba93'}} onClick={() => downloadQR(cert)} title="Download QR">
-                                                            <IoQrCodeOutline />
-                                                        </button>
-                                                        <button className="btn-icon edit" onClick={() => openEditForm(cert, 'cert')} title="Edit"><IoPencilOutline /></button>
-                                                        <button className="btn-icon delete" onClick={() => handleDelete('certificates', cert.id)} title="Delete"><IoTrashOutline /></button>
-                                                    </td>
-                                                </tr>
+                                            {activeTab === 'certificates' && paginatedCertificates.map(cert => (
+                                                <React.Fragment key={cert.id}>
+                                                    <tr>
+                                                        <td data-label="Cert Number"><strong>{cert.cert_data.certificateNumber}</strong></td>
+                                                        <td data-label="Student">{cert.cert_data.studentName}</td>
+                                                        <td data-label="Course">{cert.cert_data.courseName}</td>
+                                                        <td data-label="Issue Date">{cert.cert_data.issueDate}</td>
+                                                        <td data-label="Actions" className="action-cells">
+                                                            <button className="btn-icon edit" style={{color: '#3b82f6'}} onClick={() => downloadCertificatePDF(cert)} title="Download PDF Certificate">
+                                                                <IoDocumentTextOutline />
+                                                            </button>
+                                                            
+                                                            <button className="btn-icon edit" onClick={() => openEditForm(cert, 'cert')} title="Edit"><IoPencilOutline /></button>
+                                                            <button className="btn-icon delete" onClick={() => handleDelete('certificates', cert.id)} title="Delete"><IoTrashOutline /></button>
+                                                        </td>
+                                                    </tr>
+                                                    
+
+                                                    {/* --- HIGH-QUALITY PURE HTML/CSS A4 LANDSCAPE CERTIFICATE --- */}
+                                                    <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', overflow: 'hidden', height: 0, width: 0 }}>
+                                                        <div 
+                                                            id={`pdf-template-${cert.id}`} 
+                                                            style={{
+                                                                width: '1123px',   
+                                                                height: '794px',   
+                                                                backgroundColor: '#ffffff',
+                                                                padding: '18px',   
+                                                                boxSizing: 'border-box',
+                                                                position: 'relative',
+                                                                fontFamily: "'Times New Roman', Times, serif",
+                                                                color: '#0f172a',
+                                                                display: 'none'
+                                                            }}
+                                                        >
+                                                            <div style={{ width: '100%', height: '100%', border: '16px solid #005a36', padding: '4px', boxSizing: 'border-box' }}>
+                                                                <div style={{ width: '100%', height: '100%', border: '2px solid #005a36', position: 'relative', padding: '30px 40px', boxSizing: 'border-box' }}>
+                                                                    
+                                                                    <div style={{ position: 'absolute', top: -5, left: -5, width: 40, height: 40, borderTop: '6px solid #8b2641', borderLeft: '6px solid #8b2641' }}></div>
+                                                                    <div style={{ position: 'absolute', top: -5, right: -5, width: 40, height: 40, borderTop: '6px solid #8b2641', borderRight: '6px solid #8b2641' }}></div>
+                                                                    <div style={{ position: 'absolute', bottom: -5, left: -5, width: 40, height: 40, borderBottom: '6px solid #8b2641', borderLeft: '6px solid #8b2641' }}></div>
+                                                                    <div style={{ position: 'absolute', bottom: -5, right: -5, width: 40, height: 40, borderBottom: '6px solid #8b2641', borderRight: '6px solid #8b2641' }}></div>
+
+                                                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: 'bold' }}>
+                                                                        <div style={{ lineHeight: '1.4' }}>
+                                                                            <div>GSTIN : 10MAEPK5708F1ZX</div>
+                                                                            <div>ESTD : 2026</div>
+                                                                        </div>
+                                                                        {/* Flex column forces perfect right-alignment, box width only for the text */}
+                                                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+                                                                            <div style={{ border: '1px solid #000', padding: '2px 4px', display: 'inline-block', background: '#f8fafc' }}>
+                                                                                <span>Sl. No. :</span>
+                                                                                <span style={{ marginLeft: '6px' }}>{cert.cert_data.certificateNumber}</span>
+                                                                            </div>
+                                                                            <div>
+                                                                                Date of Completion <span style={{ marginLeft: '6px' }}>{cert.cert_data.issueDate ? new Date(cert.cert_data.issueDate).toLocaleDateString('en-GB').replace(/\//g, '.') : ''}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div style={{ textAlign: 'center', marginTop: '0px' }}>
+                                                                        <img src="/logo.png" alt="Elevate Interns" style={{ height: '50px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                        <div style={{ fontSize: '13px', fontWeight: '600', marginTop: '8px' }}>
+                                                                            Leading Institute to Provide Industrial Training and Vocational Training to All
+                                                                        </div>
+                                                                        <h1 style={{ fontFamily: "'Dancing Script', 'Brush Script MT', cursive", fontSize: '42px', color: '#005a36', margin: '10px 0 15px 0', fontWeight: 'bold' }}>
+                                                                            Certificate of {cert.cert_data.trainingType || 'Internship'}
+                                                                        </h1>
+                                                                    </div>
+
+                                                                    <div style={{ padding: '0 10px' }}>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>This is to certify that</span>
+                                                                            <span style={{ flex: 1, borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '20px', fontWeight: 'bold', textTransform: 'uppercase' }}>{cert.cert_data.studentName}</span>
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>of college / University / Board</span>
+                                                                            <span style={{ flex: 1, borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>{cert.cert_data.collegeName || cert.cert_data.universityName || '-'}</span>
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>of Branches / Course</span>
+                                                                            <span style={{ flex: 1, borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>{cert.cert_data.branch || cert.cert_data.courseName || '-'}</span>
+                                                                            <span style={{ width: '250px', borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold', textTransform: 'uppercase', marginLeft: '20px' }}>{cert.cert_data.semester || '-'}</span>
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>Roll / Reg. No.</span>
+                                                                            <span style={{ width: '280px', borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>{cert.cert_data.rollNumber || '-'}</span>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginLeft: '15px' }}>has successfully completed {cert.cert_data.trainingType || 'Summer Internship'}</span>
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>of</span>
+                                                                            <span style={{ flex: 1, borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>{cert.cert_data.topic || '-'}</span>
+                                                                        </div>
+                                                                        <div style={{ display: 'flex', alignItems: 'baseline', marginBottom: '12px' }}>
+                                                                            <span style={{ fontSize: '20px', fontStyle: 'italic', marginRight: '15px' }}>in</span>
+                                                                            <span style={{ flex: 1, borderBottom: '2px dotted #000', textAlign: 'center', fontSize: '18px', fontWeight: 'bold' }}>{cert.cert_data.duration || '-'}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '10px' }}>
+                                                                        
+                                                                        {/* QR Code Block */}
+                                                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '10px', width: '150px' }}>
+                                                                            {/* Border strictly around the QR image */}
+                                                                            <div style={{ border: '2px solid #000', padding: '4px', display: 'inline-block' }}>
+                                                                                <img 
+                                                                                    src={"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(window.location.origin + "/verify?id=" + cert.cert_data.certificateNumber)} 
+                                                                                    alt="QR" 
+                                                                                    crossOrigin="anonymous"
+                                                                                    style={{ width: '75px', height: '75px', display: 'block' }} 
+                                                                                />
+                                                                            </div>
+                                                                            {/* Text strictly outside the border */}
+                                                                            <div style={{ fontSize: '10px', marginTop: '6px', lineHeight: '1.3', fontWeight: 'bold', textAlign: 'center', color: '#0f172a' }}>
+                                                                                To verify, scan QR or visit<br/>elevateinterns.in/verify
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'flex-end', paddingRight: '20px' }}>
+                                                                            <div style={{ position: 'relative', width: '320px', height: '28px' }}>
+                                                                                <svg width="320" height="28" viewBox="0 0 320 28" preserveAspectRatio="none">
+                                                                                    <polygon points="25,0 320,0 295,28 0,28" fill="#005a36" />
+                                                                                    <polygon points="160,2 317,2 295,26 138,26" fill="#ffffff" />
+                                                                                </svg>
+                                                                                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', fontSize: '13px' }}>
+                                                                                    <div style={{ width: '150px', textAlign: 'right', paddingRight: '12px', color: '#ffffff', fontWeight: 'bold' }}>Mode of Training</div>
+                                                                                    <div style={{ flex: 1, textAlign: 'center', color: '#000000', paddingRight: '20px', fontWeight: 'bold' }}>{cert.cert_data.modeOfTraining || 'OFFLINE'}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style={{ position: 'relative', width: '370px', height: '28px' }}>
+                                                                                <svg width="370" height="28" viewBox="0 0 370 28" preserveAspectRatio="none">
+                                                                                    <polygon points="25,0 370,0 345,28 0,28" fill="#8b2641" />
+                                                                                    <polygon points="220,2 367,2 345,26 198,26" fill="#ffffff" />
+                                                                                </svg>
+                                                                                <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', fontSize: '13px' }}>
+                                                                                    <div style={{ width: '210px', textAlign: 'right', paddingRight: '12px', color: '#ffffff', fontWeight: 'bold' }}>Percentage Marks Obtained (%)</div>
+                                                                                    <div style={{ flex: 1, textAlign: 'center', color: '#000000', paddingRight: '20px', fontWeight: 'bold' }}>{cert.cert_data.percentage || '-'}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style={{ fontSize: '11px', fontStyle: 'italic', textAlign: 'center', width: '320px', marginTop: '2px', fontWeight: 'bold' }}>
+                                                                                During training he / she was very punctual and hardworking.<br/>Wishing "All the Best" for future career!
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div style={{ position: 'absolute', bottom: '30px', left: '50px', right: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                                                        
+                                                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                                            <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+                                                                                <img src="/images/msme.jpg" alt="MSME" style={{ height: '60px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                                <img src="/images/nip.png" alt="NIP" style={{ height: '70px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                                <img src="/images/gst.png" alt="GST" style={{ height: '50px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                                <img src="/images/aicte.png" alt="AICTE" style={{ height: '60px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                                <img src="/images/iso.jpg" alt="ISO" style={{ height: '60px', objectFit: 'contain' }} crossOrigin="anonymous" />
+                                                                            </div>
+                                                                            
+                                                                        </div>
+
+                                                                        {/* Authorised Signature & Stamp */}
+                                                                        <div style={{ textAlign: 'center', paddingRight: '20px', position: 'relative' }}>
+                                                                            
+                                                                            <div style={{ fontStyle: 'italic', fontSize: '16px', color: '#1e293b', marginBottom: '5px' }}>Authorised Signature</div>
+                                                                            <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#8b2641', fontFamily: 'Arial, sans-serif' }}>Elevate Interns</div>
+                                                                            <div style={{ fontSize: '12px', fontWeight: 'bold', marginTop: '5px' }}>Brij Mohan Thakur Lane, Barari, Bhagalpur Bihar 812003</div>
+                                                                            
+                                                                            {/* INDUSTRY STANDARD STAMP OVERLAY */}
+                                                                            <img 
+                                                                                src="/images/ELEVATE_INTERNS_Stamp.png" 
+                                                                                alt="Official Stamp" 
+                                                                                crossOrigin="anonymous"
+                                                                                style={{ 
+                                                                                    position: 'absolute', 
+                                                                                    top: '-67px', /* Pushed up into the free space */
+                                                                                    left: '50%', 
+                                                                                    transform: 'translateX(-50%) rotate(5deg)', 
+                                                                                    height: '80px', 
+                                                                                    opacity: 0.85, 
+                                                                                    pointerEvents: 'none'
+                                                                                }} 
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </React.Fragment>
                                             ))}
 
                                             {/* 2. NOTICES */}
@@ -489,6 +805,28 @@ export default function AdminDashboard() {
                                         </tbody>
                                     </table>
                                 )}
+
+                                {/* --- PAGINATION UI --- */}
+                                {activeTab === 'certificates' && totalPages > 1 && !loadingData && (
+                                    <div className="pagination-bar">
+                                        <button 
+                                            disabled={currentPage === 1} 
+                                            onClick={() => handlePageChange(currentPage - 1)}
+                                            className="btn-page"
+                                        >
+                                            Previous
+                                        </button>
+                                        <span className="page-info">Page {currentPage} of {totalPages}</span>
+                                        <button 
+                                            disabled={currentPage === totalPages} 
+                                            onClick={() => handlePageChange(currentPage + 1)}
+                                            className="btn-page"
+                                        >
+                                            Next
+                                        </button>
+                                    </div>
+                                )}
+                            
                             </div>
                         )}
                     </main>
@@ -562,6 +900,18 @@ export default function AdminDashboard() {
                 .fade-in { animation: fadeIn 0.3s ease-in-out; }
                 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+                /* Pagination Styles */
+                .pagination-bar { 
+                    display: flex; justify-content: space-between; align-items: center; 
+                    padding: 1.5rem 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; 
+                }
+                .btn-page { 
+                    background: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; 
+                    padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: all 0.2s; 
+                }
+                .btn-page:hover:not(:disabled) { border-color: #145da0; color: #145da0; }
+                .btn-page:disabled { opacity: 0.5; cursor: not-allowed; background: #f1f5f9; }
+                .page-info { font-weight: 700; color: #475569; font-size: 0.9rem; }
                 /* --- INDUSTRY STANDARD MOBILE RESPONSIVE UI --- */
                 @media (max-width: 992px) {
                     .dashboard-layout { flex-direction: column; }
