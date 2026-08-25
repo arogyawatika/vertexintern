@@ -45,10 +45,11 @@ export default function Footer() {
                         <ul className="footer-links">
                             <li><Link href="/" legacyBehavior passHref><a>Home</a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a>About Us</a></Link></li>
-                            <li><Link href="/courses" legacyBehavior passHref><a>Internship</a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a>Courses</a></Link></li>
                             <li><Link href="/verify" legacyBehavior passHref><a>Verify Certificate</a></Link></li>
+                            <li><Link href="/track-record" legacyBehavior passHref><a>Track Status</a></Link></li>
                             <li><Link href="/admin" legacyBehavior passHref><a>Admin Login</a></Link></li>
-                            <li><Link href="/contact" legacyBehavior passHref><a>Contact Us</a></Link></li>
+                            
                         </ul>
                     </div>
 
@@ -60,7 +61,7 @@ export default function Footer() {
                             <li><Link href="/terms" legacyBehavior passHref><a>Terms & Conditions</a></Link></li>
                             <li><Link href="/refund" legacyBehavior passHref><a>Refund Policy</a></Link></li>
                             <li><Link href="/faq" legacyBehavior passHref><a>FAQ's</a></Link></li>
-                            <li><Link href="/support" legacyBehavior passHref><a>Help & Support</a></Link></li>
+                            <li><Link href="/contact" legacyBehavior passHref><a>Contact Us</a></Link></li>
                         </ul>
                     </div>
 

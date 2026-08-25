@@ -57,7 +57,8 @@ export default function Header() {
                             <li><Link href="/" legacyBehavior passHref><a>Home <span>▾</span></a></Link></li>
                             
                             <li><Link href="/verify" legacyBehavior passHref><a>Verify Certificate <span>▾</span></a></Link></li>
-                            <li><Link href="/courses" legacyBehavior passHref><a>Internship <span>▾</span></a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a>Courses <span>▾</span></a></Link></li>
+                            <li><Link href="/enrollment" legacyBehavior passHref><a>Enrollment <span>▾</span></a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a>About <span>▾</span></a></Link></li>
                             <li><Link href="/contact" legacyBehavior passHref><a>Contact <span>▾</span></a></Link></li>
                         </ul>
@@ -88,7 +89,8 @@ export default function Header() {
                             <li><Link href="/" legacyBehavior passHref><a onClick={closeMenu}>Home <IoAddOutline /></a></Link></li>
                             
                             <li><Link href="/verify" legacyBehavior passHref><a onClick={closeMenu}>Verify Certificate <IoAddOutline /></a></Link></li>
-                            <li><Link href="/courses" legacyBehavior passHref><a onClick={closeMenu}>Internship <IoAddOutline /></a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a onClick={closeMenu}>Courses <IoAddOutline /></a></Link></li>
+                            <li><Link href="/courses" legacyBehavior passHref><a onClick={closeMenu}>Enrollment <IoAddOutline /></a></Link></li>
                             <li><Link href="/about" legacyBehavior passHref><a onClick={closeMenu}>About <IoAddOutline /></a></Link></li>
                             <li><Link href="/contact" legacyBehavior passHref><a onClick={closeMenu}>Contact <IoAddOutline /></a></Link></li>
                         </ul>
