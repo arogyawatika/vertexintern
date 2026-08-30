@@ -2,10 +2,14 @@ import React from 'react';
 import Head from 'next/head';
 import AboutHero from '../../components/about/AboutHero'; 
 import AboutDownloadProfile from '../../components/about/AboutDownloadProfile';
+import AboutOffers from '../../components/about/AboutOffers'; // <-- Import the new component
 import AboutMission from '../../components/about/AboutMission';
 import AboutWhyChooseUs from '../../components/about/AboutWhyChooseUs';
 import AboutTestimonials from '../../components/about/AboutTestimonials';
 import AboutVision from '../../components/about/AboutVision';
+import AboutPrograms from '../../components/about/AboutPrograms';
+
+
 
 export default function About() {
     return (
@@ -14,18 +18,20 @@ export default function About() {
                 <title>About Us | Elevate Interns</title>
             </Head>
 
-            {/* --- PREMIUM FULL-WIDTH HEADER --- */}
-            
-
             {/* --- ABOUT PAGE COMPONENTS --- */}
             <AboutHero />
             <AboutDownloadProfile />
             
+            
+            
             {/* The Alternate Side-by-Side Sections */}
             <AboutMission /> 
+            {/* --- NEW OFFERS SECTION --- */}
+            <AboutOffers />
             {/*<AboutWhyChooseUs />*/}
             <AboutVision />
             {/*<AboutTestimonials />*/}
+            <AboutPrograms />
 
             <style jsx>{`
                 .about-wrapper { background-color: #ffffff; font-family: 'Ubuntu', sans-serif; padding-bottom: 4rem; }

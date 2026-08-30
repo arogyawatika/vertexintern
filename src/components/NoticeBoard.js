@@ -39,7 +39,7 @@ export default function NoticeBoard() {
                         <div className="graphic-content">
                             {/* Replace src with your own image or illustration path (e.g., "/images/notice-graphic.png") */}
                             <img 
-                                src="https://illustrations.popsy.co/amber/communication.svg" 
+                                src="/images/notice.jpg" 
                                 alt="Announcements Graphic" 
                                 className="illustration"
                             />

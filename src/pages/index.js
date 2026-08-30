@@ -6,6 +6,7 @@ import About from '../components/About';
 import ContactBanner from '../components/ContactBanner';
 import CallToAction from '../components/CallToAction';
 import NoticeBoard from '../components/NoticeBoard';
+import OfferPopup from '@/components/OfferPopup';
 
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <Stats />
         <About />
         <CallToAction />
+        <OfferPopup />
 
         {/* You can drop in your VideoGallery component here later! */}
 
